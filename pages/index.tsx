@@ -26,12 +26,20 @@ export default function Home() {
         </div>
 
         <div className={style.main}>
-          <textarea id="input" placeholder="Wpisz wyraz:"></textarea>
+          <textarea id="input" placeholder="Wpisz tutaj frazę"></textarea>
           <button className={style.button} onClick={confirmButton}>
             Zamień
           </button>
           <div id="output" className={style.output}>
             <p>Poczekaj na wyniki...</p>
+          </div>
+        </div>
+        <div className={style.historyHandler}>
+          <h2>Historia wyszukiwań:</h2>
+          <div id="historyList" className={style.history}>
+            <p id="placeholderText">
+              Wpisz pierwsze słowo, aby wyświetlić historię wyszukiwań!
+            </p>
           </div>
         </div>
       </main>
@@ -62,5 +70,37 @@ function confirmButton() {
 
     const outputElement = document.getElementById("output") as HTMLInputElement;
     outputElement.innerHTML = output;
+
+    addToHistory(input, output);
   }
+}
+
+function addToHistory(input: string, output: string) {
+  const placeholderText = document.getElementById(
+    "placeholderText"
+  ) as HTMLInputElement;
+  if (placeholderText) placeholderText.remove();
+
+  const div = document.createElement("div");
+  div.setAttribute("id", input);
+  div.setAttribute("class", style.historyPosition);
+  div.innerHTML = `${input} &#8594; ${output}`;
+
+  const historyList = document.getElementById(
+    "historyList"
+  ) as HTMLInputElement;
+  if (historyList.firstElementChild?.id !== input)
+    historyList.insertBefore(div, historyList.firstChild);
+
+  div.addEventListener("click", (e) => {
+    if (e.target instanceof Element) {
+      const inputElement = document.getElementById("input") as HTMLInputElement;
+      inputElement.value = e.target.id;
+      confirmButton();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  });
 }
