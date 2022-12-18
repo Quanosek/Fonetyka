@@ -38,7 +38,8 @@ export default function Home() {
           <h2>Historia wyszukiwań:</h2>
           <div id="historyList" className={style.history}>
             <p id="placeholderText">
-              Wpisz pierwsze słowo, aby wyświetlić historię wyszukiwań!
+              Zacznij wpisywać różne frazy, aby móc wyświetlić historię
+              wyszukiwania!
             </p>
           </div>
         </div>
@@ -46,8 +47,8 @@ export default function Home() {
 
       <footer>
         <p>
-          Strona stworzona przez:{" "}
-          <a href="https://github.com/Quanosek">Jakub Kłało</a>
+          Strona stworzona przez{" "}
+          <a href="https://github.com/Quanosek">Jakuba Kłało</a>.
         </p>
         <p>
           Wszelkie prawa zastrzeżone &#169; 2023 │ domena{" "}
