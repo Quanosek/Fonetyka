@@ -7,9 +7,12 @@ export default (input: string) => {
   input = input.toLowerCase();
   const array = input.split(/[" "|"\n"]/g);
 
-  let result: string[] = [];
+  let result = "";
+
   array.forEach((word) => {
-    result.push(format_AS(word));
+    // result.push(format_AS(word));
+    // result.push(format_IPA(word));
+    result += `${syllables(word)} `;
   });
 
   // return formatted text

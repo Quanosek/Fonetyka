@@ -1,5 +1,5 @@
 export default function (word: string) {
-  const letter = word.split("");
+  const letters = word.split("");
 
   //
   //

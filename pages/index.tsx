@@ -17,6 +17,7 @@ export default function Home() {
       </Head>
 
       <main>
+        {/* title */}
         <div className={style.title}>
           <h1>Generator zapisu fonetycznego</h1>
           <p>
@@ -26,14 +27,19 @@ export default function Home() {
         </div>
 
         <div className={style.main}>
+          {/* input  */}
           <textarea id="input" placeholder="Wpisz tutaj frazę"></textarea>
+          {/* magic button */}
           <button className={style.button} onClick={confirmButton}>
             Zamień
           </button>
+          {/* output */}
           <div id="output" className={style.output}>
             <p>Poczekaj na wyniki...</p>
           </div>
         </div>
+
+        {/* history */}
         <div className={style.historyHandler}>
           <h2>Historia wyszukiwań:</h2>
           <div id="historyList" className={style.history}>
@@ -59,6 +65,7 @@ export default function Home() {
   );
 }
 
+// MAIN (magic) button
 function confirmButton() {
   const inputElement = document.getElementById(
     "input"
@@ -77,23 +84,47 @@ function confirmButton() {
 }
 
 function addToHistory(input: string, output: string) {
+  // default value
   const placeholderText = document.getElementById(
     "placeholderText"
   ) as HTMLInputElement;
   if (placeholderText) placeholderText.remove();
 
-  const div = document.createElement("div");
-  div.setAttribute("id", input);
-  div.setAttribute("class", style.historyPosition);
-  div.innerHTML = `${input} &#8594; ${output}`;
+  // creating HTML elements
+  const handler = document.createElement("div");
+  handler.setAttribute("id", input);
+  handler.setAttribute("class", style.historyPosition);
 
+  const date = new Date().toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  const timeDate = document.createElement("p");
+  timeDate.setAttribute("class", style.timeDate);
+  timeDate.innerHTML = date.toString();
+  handler.appendChild(timeDate);
+
+  const firstText = document.createElement("p");
+  firstText.setAttribute("class", style.firstText);
+  firstText.innerHTML = input;
+  handler.appendChild(firstText);
+
+  const resultText = document.createElement("p");
+  resultText.setAttribute("class", style.resultText);
+  resultText.innerHTML = output;
+  handler.appendChild(resultText);
+
+  // create div
   const historyList = document.getElementById(
     "historyList"
   ) as HTMLInputElement;
   if (historyList.firstElementChild?.id !== input)
-    historyList.insertBefore(div, historyList.firstChild);
+    historyList.insertBefore(handler, historyList.firstChild);
 
-  div.addEventListener("click", (e) => {
+  // event handler
+  handler.addEventListener("click", (e) => {
     if (e.target instanceof Element) {
       const inputElement = document.getElementById("input") as HTMLInputElement;
       inputElement.value = e.target.id;

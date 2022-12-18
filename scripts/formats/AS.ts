@@ -1,5 +1,5 @@
 export default function (word: string) {
-  const letter = word.split("");
+  const letters = word.split("");
 
   // loanwords
   if (word.includes("chip")) word = word.replace("chip", "čip");
@@ -7,8 +7,8 @@ export default function (word: string) {
     word = word.replaceAll("ci", "ć");
 
   // one letter
-  if (letter[1] === "ę") word = word.replace("ę", "e");
-  if (letter[0] === "i") word = word.replace("i", "į");
+  if (letters[1] === "ę") word = word.replace("ę", "e");
+  if (letters[0] === "i") word = word.replace("i", "į");
 
   // first two letters
   if (word.slice(0, 2) !== "li") word = word.replace("li", "l̦i");

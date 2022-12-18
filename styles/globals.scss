@@ -30,7 +30,6 @@
 }
 
 // default tags
-
 html {
   align-items: center;
   text-align: center;
@@ -104,6 +103,7 @@ p {
   opacity: 0.5;
 }
 
+// default mobile view
 @media screen and (max-width: 800px) {
   main {
     margin-top: 1rem;
