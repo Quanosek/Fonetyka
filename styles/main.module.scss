@@ -14,6 +14,7 @@
 
   textarea,
   div.output {
+    font-family: consolas;
     padding: 0.6rem 2rem 0.6rem 0.6rem;
     width: 50%;
     height: 20rem;
@@ -30,7 +31,6 @@
   }
 
   div.output {
-    font-family: consolas;
     padding: 0.6rem 0.6rem 0.6rem 2rem;
 
     p {
@@ -103,6 +103,7 @@
   text-shadow: none;
   transition: 0.2s ease-in-out;
   background-color: rgba(#e9e9e9, 0.5);
+  text-align: left;
   height: 50px;
   cursor: pointer;
 

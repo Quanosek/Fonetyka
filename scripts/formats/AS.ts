@@ -1,4 +1,4 @@
-export default function (word) {
+export default function (word: string) {
   const letter = word.split("");
 
   // loanwords

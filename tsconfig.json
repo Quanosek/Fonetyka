@@ -13,14 +13,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@styles/*": ["./styles/*"],
+      "@scripts/*": ["./scripts/*"],
+      "@formats/*": ["./scripts/formats/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "scripts/rewrite.js",
-    "scripts/rewrite.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

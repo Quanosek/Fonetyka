@@ -1,7 +1,7 @@
-import style from "../styles/main.module.scss";
+import style from "@styles/main.module.scss";
 import Head from "next/head";
 
-import rewrite from "../scripts/rewrite.js";
+import rewrite from "@scripts/rewrite";
 
 export default function Home() {
   return (
