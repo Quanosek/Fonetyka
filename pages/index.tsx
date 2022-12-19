@@ -67,10 +67,8 @@ export default function Home() {
 
 // MAIN (magic) button
 function confirmButton() {
-  const inputElement = document.getElementById(
-    "input"
-  ) as HTMLInputElement | null;
-  const input = inputElement?.value;
+  const inputElement = document.getElementById("input") as HTMLInputElement;
+  let input = inputElement?.value;
 
   if (!input) alert("Nie wpisano żadnych znaków!");
   else {
