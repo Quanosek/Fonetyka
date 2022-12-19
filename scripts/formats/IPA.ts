@@ -76,6 +76,9 @@ function counters(word: string) {
 function changeGrammar(word: string) {
   // specjalne przypadki
   const grammar = {
+    x: "ks",
+    qu: "q",
+    q: "ku",
     bi: "bʲ",
     ch: "h",
     h: "x",
@@ -94,7 +97,6 @@ function changeGrammar(word: string) {
     ź: "ʑ",
     fi: "fʲ",
     hi: "h",
-    ki: "c",
     mi: "mʲ",
     ni: "ń",
     ń: "ȵ",
@@ -140,6 +142,10 @@ function changeGrammar(word: string) {
   Object.keys(grammar).forEach((key) => {
     word = word.replaceAll(key, grammar[key as keyType]);
   });
+
+  // kiedy zostaje "ki" na końcu wyrazu
+  if (!word.endsWith("ki")) word = word.replace("ki", "c");
+  else word = word.replace("ki", "ci");
 
   // wyjątek z "rzi"
   if (word.includes("ʒi")) word = word.replace("ʒi", "rʑ");

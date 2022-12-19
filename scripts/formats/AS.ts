@@ -76,6 +76,9 @@ function counters(word: string) {
 function changeGrammar(word: string) {
   // specjalne przypadki
   const grammar = {
+    x: "ks",
+    qu: "q",
+    q: "ku",
     bi: "b́",
     ch: "h",
     ci: "ć",
