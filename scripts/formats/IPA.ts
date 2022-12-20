@@ -1,117 +1,62 @@
-// wszystkie litery alfabetu
-const alphabet = [
-  "a",
-  "ą",
-  "b",
-  "c",
-  "ć",
-  "d",
-  "e",
-  "ę",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "ł",
-  "m",
-  "n",
-  "ń",
-  "o",
-  "ó",
-  "p",
-  "q",
-  "r",
-  "s",
-  "ś",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "ź",
-  "ż",
-];
-// samogłoski
-const vowelsArray = ["a", "ą", "e", "ę", "i", "o", "ó", "u", "y"];
-// spółgłoski
+import { sonority } from "@scripts/rewrite";
+
+// podział liter alfabetu
+import letters from "./alphabet.json";
+const alphabet = letters.all;
+const vowelsArray = letters.vowels;
+
 const consonantsArray = alphabet.filter(
   (letter) => !vowelsArray.includes(letter)
 );
 
-export default function (word: string) {
-  const counter = counters(word);
-  console.log(counter);
+// zamiana zapisu gramatycznego
+const grammar = {
+  x: "ks",
+  qu: "q",
+  q: "ku",
+  bi: "bʲ",
+  ch: "h",
+  h: "x",
+  ci: "ć",
+  ć: "ʨ̑",
+  cz: "ʧ̑",
+  c: "ʦ̑",
+  dzi: "ʥ̑",
+  dz: "ʣ̑",
+  e: "ɛ",
+  ę: "ɛ̃",
+  rz: "ż",
+  ż: "ʒ",
+  dż: "ʤ̑",
+  zi: "ź",
+  ź: "ʑ",
+  fi: "fʲ",
+  hi: "h",
+  mi: "mʲ",
+  ni: "ń",
+  ń: "ȵ",
+  o: "ɔ",
+  ó: "u",
+  pi: "pʲ",
+  si: "ś",
+  ś: "ɕ",
+  sz: "ʃ",
+  wi: "vʲ",
+  w: "v",
+  ł: "w",
+  y: "ɨ",
+};
 
+// główna funkcja
+export default function (word: string) {
   const changed = changeGrammar(word);
   console.log("IPA: " + changed);
 
   return changed;
 }
 
-// zliczanie elementów wyrazu
-function counters(word: string) {
-  const counters = {
-    word: word,
-    letters: word.length,
-    vowels: 0,
-    consonants: 0,
-  };
-
-  word.split("").forEach((letter) => {
-    vowelsArray.some((vowel) => {
-      if (letter === vowel) counters.vowels++;
-    });
-  });
-
-  counters.consonants = word.length - counters.vowels;
-  return counters;
-}
-
 // zmiana gramatyki
 function changeGrammar(word: string) {
-  // specjalne przypadki
-  const grammar = {
-    x: "ks",
-    qu: "q",
-    q: "ku",
-    bi: "bʲ",
-    ch: "h",
-    h: "x",
-    ci: "ć",
-    ć: "ʨ̑",
-    cz: "ʧ̑",
-    c: "ʦ̑",
-    dzi: "ʥ̑",
-    dz: "ʣ̑",
-    e: "ɛ",
-    ę: "ɛ̃",
-    rz: "ż",
-    ż: "ʒ",
-    dż: "ʤ̑",
-    zi: "ź",
-    ź: "ʑ",
-    fi: "fʲ",
-    hi: "h",
-    mi: "mʲ",
-    ni: "ń",
-    ń: "ȵ",
-    o: "ɔ",
-    ó: "u",
-    pi: "pʲ",
-    si: "ś",
-    ś: "ɕ",
-    sz: "ʃ",
-    wi: "vʲ",
-    w: "v",
-    ł: "w",
-    y: "ɨ",
-  };
-
   consonantsArray.some((consonant) => {
     // jeśli po "i" występuje spółgłoska, to "i" musi zostać
     if (word.endsWith("i"))
@@ -162,16 +107,6 @@ function changeGrammar(word: string) {
     if (word.includes(vowel + "ʧ̑"))
       word = word.replace(vowel + "ʧ̑", vowel + "ʤ̑");
   });
-
-  return word;
-}
-
-// wyjątki z dźwięcznością głosek przy spółgłoskach
-function sonority(word: string, consonant: string, a: string, b: string) {
-  if (word.includes(a + consonant))
-    word = word.replace(a + consonant, b + consonant);
-  if (word.endsWith(consonant + a))
-    word = word.replace(consonant + a, consonant + b);
 
   return word;
 }
