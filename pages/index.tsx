@@ -1,6 +1,7 @@
-import style from "@styles/main.module.scss";
 import Head from "next/head";
+import Script from "next/script";
 
+import style from "@styles/main.module.scss";
 import rewrite from "@scripts/rewrite";
 
 export default function Home() {
@@ -28,13 +29,22 @@ export default function Home() {
 
         <div className={style.main}>
           {/* input  */}
-          <textarea id="input" placeholder="Wpisz tutaj frazę"></textarea>
+          <textarea
+            data-scrollsync
+            className="scrollable_item_1"
+            id="input"
+            placeholder="Wpisz tutaj frazę"
+          ></textarea>
           {/* magic button */}
           <button className={style.button} onClick={confirmButton}>
             Zamień
           </button>
           {/* output */}
-          <div id="output" className={style.output}>
+          <div
+            data-scrollsync
+            id="output"
+            className={`${style.output} scrollable_item_2`}
+          >
             <p>Poczekaj na wyniki...</p>
           </div>
         </div>
@@ -61,20 +71,34 @@ export default function Home() {
           <a href="https://www.klalo.pl">klalo.pl</a>
         </p>
       </footer>
+
+      <Script src="https://cdn.jsdelivr.net/npm/easy-scroll-sync@latest/dist/easy-scroll-sync.min.js"></Script>
     </>
   );
 }
 
-// MAIN (magic) button
+// magic button
 function confirmButton() {
   const inputElement = document.getElementById("input") as HTMLInputElement;
-  let input = inputElement?.value;
+  const outputElement = document.getElementById("output") as HTMLInputElement;
 
-  if (!input) alert("Nie wpisano żadnych znaków!");
-  else {
+  // reformat input text
+  let input = (inputElement.value = inputElement.value
+    .replace(/[0-9]/gi, "")
+    .replace(/[ -\/:-@\[-\`{-~]/gi, " ")
+    .replaceAll(" ", "\n")
+    .replace(/\n+(?=\n)/g, "")
+    .replace(/ +(?= )/g, "")
+    .replace(/\n\r/g, ""));
+
+  // function
+  if (!input) {
+    outputElement.innerHTML = "<p>Poczekaj na wyniki...</p>";
+    alert("Nie wpisano żadnych liter!");
+  } else {
     const output = rewrite(input);
 
-    const outputElement = document.getElementById("output") as HTMLInputElement;
+    inputElement.scrollTop = 0;
     outputElement.innerHTML = output;
 
     addToHistory(input, output);
