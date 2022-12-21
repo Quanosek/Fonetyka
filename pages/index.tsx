@@ -54,8 +54,9 @@ export default function Home() {
           <h2>Historia wyszukiwań:</h2>
           <div id="historyList" className={style.history}>
             <p id="placeholderText">
-              Zacznij wpisywać różne frazy, aby móc wyświetlić historię
-              wyszukiwania!
+              Zacznij wpisywać różne frazy,
+              <br />
+              aby wyświetlić historię wyszukiwania!
             </p>
           </div>
         </div>
