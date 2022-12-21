@@ -24,6 +24,7 @@ const grammar = {
   ch: "h",
   ci: "ć",
   cz: "č",
+  di: "d'",
   dzi: "ʒ́",
   dz: "ʒ",
   rz: "ż",
@@ -32,13 +33,15 @@ const grammar = {
   dź: "ʒ́",
   fi: "f́",
   gi: "ǵ",
-  hi: "h́",
+  hi: "χ́",
+  h: "χ",
   ki: "ḱ",
   mi: "ḿ",
   ni: "ń",
   ó: "u",
   pi: "ṕ",
   si: "ś",
+  ti: "t'",
   sz: "š",
   tż: "tš",
   wi: "v́",
@@ -131,45 +134,46 @@ function changeGrammar(word: string) {
   // specjalne końcówki
   if (word.endsWith("ąt")) word = word.replace("ąt", "oŋt");
 
+  // zmiana wymowy spółgłosek, jeśli występują po samogłoskach
+  vowelsArray.some((vowel) => {
+    if (word.includes(vowel + "j"))
+      word = word.replace(vowel + "j", vowel + "i̯");
+  });
+
   //! zamiana zapisu gramatycznego
   type keyType = keyof typeof grammar;
   Object.keys(grammar).forEach((key) => {
     word = word.replaceAll(key, grammar[key as keyType]);
   });
+  voicelessArray.push("š"); //? korekta braku gramatyki
 
   // wyjątek z dźwięcznością "ł"
   if (word.includes("ł")) word = sonority(word, "ł", "ł̦");
 
   // wyjątek z dźwięcznością "ą"
   if (word.includes("ą")) {
-    voicelessArray.push("š"); // korekta braku gramatyki
     const notVoicelessArray = alphabet.filter(
       (letter) => !voicelessArray.includes(letter)
     );
-
     notVoicelessArray.some((x) => {
       if (word.includes(x + "ą")) word = word.replace(x + "ą", x + "ǫ");
     });
   }
 
-  // wyjątek z zapisem "rzi"
+  // wyjątki z zapisem "rz"
   if (word.includes("żi")) word = word.replace("żi", "rź");
+  word = word.replace("aż", "arz");
 
-  if (word.includes("ż"))
-    consonantsArray.some((consonant) => {
-      // wyjątki z zapisem "rz"
-      if (word.includes("ż" + consonant))
-        word = word.replace("ż" + consonant, "rs" + consonant);
+  // zmiana wymowy "cz" przed głoskami dźwięcznymi na twardszą
+  if (word.includes("č"))
+    voicedArray.some((voiced) => {
+      word = word.replace("č" + voiced, "ǯ" + voiced);
     });
 
-  // zmiana wymowy spółgłosek, jeśli występują po samogłoskach
-  vowelsArray.some((vowel) => {
-    if (word.includes(vowel + "h"))
-      word = word.replace(vowel + "h", vowel + "χ");
-
-    if (word.includes(vowel + "j"))
-      word = word.replace(vowel + "j", vowel + "i̯");
-  });
+  // specjalne przypadki
+  word = word.replace("oŋć", "ońć");
+  word = word.replace("tr̦z", "ṭš");
+  word = word.replace("dr̦z", "ḍž");
 
   return word;
 }

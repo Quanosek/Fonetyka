@@ -22,22 +22,24 @@ const grammar = {
   q: "ku",
   bi: "bʲ",
   ch: "h",
-  h: "x",
   ci: "ć",
   ć: "ʨ̑",
   cz: "ʧ̑",
   c: "ʦ̑",
+  di: "dʲ",
   dzi: "ʥ̑",
   dz: "ʣ̑",
   e: "ɛ",
   ę: "ɛ̃",
   rz: "ż",
   dż: "ʤ̑",
+  ż: "ʒ",
   zi: "ź",
   ź: "ʑ",
   fi: "fʲ",
   gi: "ɟ",
-  hi: "h",
+  hi: "ç",
+  h: "x",
   mi: "mʲ",
   ni: "ń",
   ń: "ȵ",
@@ -47,6 +49,7 @@ const grammar = {
   si: "ś",
   ś: "ɕ",
   sz: "ʃ",
+  ti: "tʲ",
   wi: "vʲ",
   w: "v",
   ł: "w",
@@ -136,6 +139,7 @@ function changeGrammar(word: string) {
   Object.keys(grammar).forEach((key) => {
     word = word.replaceAll(key, grammar[key as keyType]);
   });
+  voicelessArray.push("ɕ", "ʃ"); //? korekta braku gramatyki
 
   // wyjątek z dźwięcznością "ł"
   if (word.includes("w")) word = sonority(word, "w", "w̥");
@@ -146,7 +150,6 @@ function changeGrammar(word: string) {
 
   // wyjątek z dźwięcznością "ą"
   if (word.includes("ą")) {
-    voicelessArray.push("ɕ", "ʃ"); // korekta braku gramatyki
     const notVoicelessArray = alphabet.filter(
       (letter) => !voicelessArray.includes(letter)
     );
@@ -155,14 +158,20 @@ function changeGrammar(word: string) {
     });
   }
 
-  // wyjątek z zapisem "rzi"
+  // wyjątki z zapisem "rz"
   if (word.includes("ʒi")) word = word.replace("ʒi", "rʑ");
+  word = word.replace("aʒ", "arz");
 
-  // wyjątek z zapisem "rz"
-  if (word.includes("ʒ"))
-    consonantsArray.some((consonant) => {
-      word = word.replace("ʒ" + consonant, "rs" + consonant);
+  // zmiana wymowy "cz" przed głoskami dźwięcznymi na twardszą
+  if (word.includes("ʧ̑"))
+    voicedArray.some((voiced) => {
+      word = word.replace("ʧ̑" + voiced, "ʤ̑" + voiced);
     });
+
+  // specjalne przypadki
+  word = word.replace("oŋć", "oȵć");
+  word = word.replace("tr̥z", "t͇ʃ");
+  word = word.replace("dr̥z", "d͇ʒ");
 
   return word;
 }
