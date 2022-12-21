@@ -84,12 +84,11 @@ function confirmButton() {
 
   // reformat input text
   let input = (inputElement.value = inputElement.value
-    .replace(/[0-9]/gi, "")
-    .replace(/[ -\/:-@\[-\`{-~]/gi, " ")
-    .replaceAll(" ", "\n")
-    .replace(/\n+(?=\n)/g, "")
-    .replace(/ +(?= )/g, "")
-    .replace(/\n\r/g, ""));
+    .replace(/[0-9]/gi, "") //remove numbers
+    .replace(/[ -\/:-@\[-\`{-~]/gi, "\n") // remove special characters
+    .replace(/ +(?= )/g, "") // remove additional spaces
+    .replace(/\n+(?=\n)/g, "") // remove additional enters
+    .replace(/\n$/, "")); // remove last line if empty
 
   // function
   if (!input) {

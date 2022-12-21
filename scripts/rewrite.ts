@@ -2,7 +2,12 @@ import format_AS from "@formats/AS";
 import format_IPA from "@formats/IPA";
 
 import letters from "@formats/alphabet.json";
+const alphabet = letters.all;
+
 const vowelsArray = letters.vowels;
+const consonantsArray = alphabet.filter(
+  (letter) => !vowelsArray.includes(letter)
+);
 
 // główna funkcja
 export default (input: string) => {
@@ -40,16 +45,14 @@ export function counters(word: string) {
 }
 
 // wyjątki z dźwięcznością głosek przy spółgłoskach
-export function sonority(
-  word: string,
-  consonant: string,
-  a: string,
-  b: string
-) {
-  if (word.includes(a + consonant))
-    word = word.replace(a + consonant, b + consonant);
-  if (word.endsWith(consonant + a))
-    word = word.replace(consonant + a, consonant + b);
+export function sonority(word: string, a: string, b: string) {
+  consonantsArray.some((con1) => {
+    consonantsArray.some((con2) => {
+      if (word.includes(con1 + a + con2))
+        word = word.replace(con1 + a + con2, con1 + b + con2);
+    });
+    if (word.endsWith(con1 + a)) word = word.replace(con1 + a, con1 + b);
+  });
 
   return word;
 }

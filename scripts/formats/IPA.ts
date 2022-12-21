@@ -3,11 +3,17 @@ import { sonority } from "@scripts/rewrite";
 // podział liter alfabetu
 import letters from "./alphabet.json";
 const alphabet = letters.all;
-const vowelsArray = letters.vowels;
 
+const vowelsArray = letters.vowels;
 const consonantsArray = alphabet.filter(
   (letter) => !vowelsArray.includes(letter)
 );
+
+const voicedArray = letters.voiced;
+const voicelessArray = letters.voiced;
+
+const softArray = letters.soft;
+const hardArray = alphabet.filter((letter) => !softArray.includes(letter));
 
 // zamiana zapisu gramatycznego
 const grammar = {
@@ -26,11 +32,11 @@ const grammar = {
   e: "ɛ",
   ę: "ɛ̃",
   rz: "ż",
-  ż: "ʒ",
   dż: "ʤ̑",
   zi: "ź",
   ź: "ʑ",
   fi: "fʲ",
+  gi: "ɟ",
   hi: "h",
   mi: "mʲ",
   ni: "ń",
@@ -74,39 +80,89 @@ function changeGrammar(word: string) {
       word = word.replaceAll("i" + consonant, "ii" + consonant);
     }
 
-    // wyjątki z dźwięcznością głosek przy spółgłoskach
-    word = sonority(word, consonant, "l", "l̥");
-    word = sonority(word, consonant, "m", "m̥");
-    word = sonority(word, consonant, "n", "n̥");
-    word = sonority(word, consonant, "ń", "ȵ̥");
-    word = sonority(word, consonant, "r", "r̥");
+    if (word.includes("n"))
+      alphabet.some(() => {
+        vowelsArray.some((vowel) => {
+          consonantsArray.some((consonant) => {
+            // bezdźwięczność "n"
+            if (word.includes(vowel + "n" + consonant))
+              word = word.replace(
+                vowel + "n" + consonant,
+                vowel + "ŋ" + consonant
+              );
+          });
+        });
+      });
+
+    // zanikanie samogłosek przed bezdźwięcznym "n"
+    word = word.replace("aŋ", "ã");
+    word = word.replace("ɛŋ", "ɔ̃");
+    word = word.replace("iŋ", "ĩ");
+    word = word.replace("uŋ", "ũ");
+
+    softArray.some((soft) => {
+      word = word.replace("ą" + soft, "ɔŋ" + soft);
+      word = word.replace("ę" + soft, "ɛŋ" + soft);
+      // wyjątki dla "ą" i "ę"
+      word = word.replace("ã" + soft, "ɔŋ" + soft);
+      word = word.replace("ɔ̃" + soft, "ɛŋ" + soft);
+    });
+
+    if (word.includes("yŋ"))
+      voicelessArray.some((voiceless) => {
+        word = word.replace(voiceless + "yŋ", voiceless + "ɨ̃");
+      });
   });
 
-  // poprawa gramatyczna
+  // wyjątki z dźwięcznością głosek przy spółgłoskach
+  word = sonority(word, "l", "l̥");
+  word = sonority(word, "m", "m̥");
+  word = sonority(word, "n", "n̥");
+  word = sonority(word, "ń", "ȵ̥");
+  word = sonority(word, "r", "r̥");
+
+  // zanik pierwszej głoski przy dwóch głoskach miękkich
+  softArray.some((soft1) => {
+    softArray.some((soft2) => {
+      word = word.replace(soft1 + soft2, soft2);
+    });
+  });
+
+  // specjalne końcówki
+  if (word.endsWith("ąt")) word = word.replace("ąt", "oŋt");
+
+  //! zamiana zapisu gramatycznego
   type keyType = keyof typeof grammar;
   Object.keys(grammar).forEach((key) => {
     word = word.replaceAll(key, grammar[key as keyType]);
   });
 
+  // wyjątek z dźwięcznością "ł"
+  if (word.includes("w")) word = sonority(word, "w", "w̥");
+
   // kiedy zostaje "ki" na końcu wyrazu
   if (!word.endsWith("ki")) word = word.replace("ki", "c");
   else word = word.replace("ki", "ci");
 
-  // wyjątek z "rzi"
+  // wyjątek z dźwięcznością "ą"
+  if (word.includes("ą")) {
+    voicelessArray.push("ɕ", "ʃ"); // korekta braku gramatyki
+    const notVoicelessArray = alphabet.filter(
+      (letter) => !voicelessArray.includes(letter)
+    );
+    notVoicelessArray.some((x) => {
+      if (word.includes(x + "ą")) word = word.replace(x + "ą", x + "ɔ̃");
+    });
+  }
+
+  // wyjątek z zapisem "rzi"
   if (word.includes("ʒi")) word = word.replace("ʒi", "rʑ");
 
-  // wyjątek z "rz"
-  consonantsArray.some((consonant) => {
-    // wyjątki z "rz"
-    if (word.includes("ʒ" + consonant))
+  // wyjątek z zapisem "rz"
+  if (word.includes("ʒ"))
+    consonantsArray.some((consonant) => {
       word = word.replace("ʒ" + consonant, "rs" + consonant);
-  });
-
-  // zmiana wymowy spółgłosek, jeśli występują po samogłoskach
-  vowelsArray.some((vowel) => {
-    if (word.includes(vowel + "ʧ̑"))
-      word = word.replace(vowel + "ʧ̑", vowel + "ʤ̑");
-  });
+    });
 
   return word;
 }
