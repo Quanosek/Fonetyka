@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import Head from "next/head";
 import Script from "next/script";
 
@@ -5,6 +7,10 @@ import style from "@styles/main.module.scss";
 import rewrite from "@scripts/rewrite";
 
 export default function Home() {
+  useEffect(() => {
+    window.addEventListener("scroll", scrollFunction);
+  });
+
   return (
     <>
       <Head>
@@ -36,7 +42,11 @@ export default function Home() {
             placeholder="Wpisz tutaj frazę"
           ></textarea>
           {/* magic button */}
-          <button className={style.button} onClick={confirmButton}>
+          <button
+            onClick={confirmButton}
+            className={style.button}
+            title="Kliknij, aby zamienić na zapis fonetyczny!"
+          >
             Zamień
           </button>
           {/* output */}
@@ -60,6 +70,15 @@ export default function Home() {
             </p>
           </div>
         </div>
+
+        <button
+          onClick={topFunction}
+          id="scrollButton"
+          className={style.scrollButton}
+          title="Kliknij, aby powrócić na samą górę!"
+        >
+          <img src="/images/arrow.svg"></img>
+        </button>
       </main>
 
       <footer>
@@ -157,4 +176,26 @@ function addToHistory(input: string, output: string) {
       });
     }
   });
+}
+
+function scrollFunction() {
+  const scrollButton = document.getElementById(
+    "scrollButton"
+  ) as HTMLInputElement;
+  const scrollStyle = scrollButton.style;
+
+  if ((document.body.scrollTop || document.documentElement.scrollTop) > 300) {
+    scrollStyle.visibility = "visible";
+    scrollStyle.bottom = "1.3rem";
+    scrollStyle.opacity = "1";
+  } else {
+    scrollStyle.visibility = "";
+    scrollStyle.bottom = "";
+    scrollStyle.opacity = "";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTo({ top: 0, behavior: "smooth" });
+  document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
 }

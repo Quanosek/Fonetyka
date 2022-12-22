@@ -65,25 +65,10 @@
 // magic button
 .button {
   margin: -3rem;
-  padding: 1%;
   position: relative;
   top: 9.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 5.5rem;
   height: 5.5rem;
-  color: #000000;
-  background-color: #7fffd4;
-  transition: 0.2s ease-in-out;
-  border-radius: 100%;
-  box-shadow: 6px 10px 25px -12px #000000;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #55eddc;
-  }
+  width: 5.5rem;
 }
 
 // history
@@ -132,11 +117,13 @@
   border-radius: 0.35rem;
   cursor: pointer;
 
-  &:hover {
-    background-color: rgba(#e9e9e9, 0.65);
+  @media screen and (min-width: 800px) {
+    &:hover {
+      background-color: rgba(#e9e9e9, 0.65);
 
-    img {
-      opacity: 1;
+      img {
+        opacity: 1;
+      }
     }
   }
 
@@ -162,6 +149,25 @@
     right: 0;
     text-align: right;
     height: 0;
+  }
+}
+
+.scrollButton {
+  z-index: 1;
+  font-size: 18px;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  bottom: -2rem;
+  right: 1.5rem;
+  height: 4rem;
+  width: 4rem;
+  background-color: #4be1da;
+
+  @media screen and (min-width: 800px) {
+    &:hover {
+      background-color: #69eedc;
+    }
   }
 }
 
@@ -206,5 +212,9 @@
 
   .firstText {
     max-width: 75% !important;
+  }
+  .scrollButton {
+    scale: 0.85;
+    right: 0.65rem;
   }
 }
