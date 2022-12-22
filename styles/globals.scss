@@ -121,6 +121,10 @@ button {
   }
 }
 
+img {
+  max-width: none;
+}
+
 ::placeholder {
   opacity: 0.5;
 }
