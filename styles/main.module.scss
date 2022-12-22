@@ -136,9 +136,13 @@
     font-size: 106%;
     font-weight: 600;
     max-width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .resultText {
     margin-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .timeDate {
