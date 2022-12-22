@@ -38,7 +38,6 @@ const grammar = {
   ź: "ʑ",
   fi: "fʲ",
   gi: "ɟ",
-  hi: "ç",
   h: "x",
   mi: "mʲ",
   ni: "ń",
@@ -75,8 +74,8 @@ function changeGrammar(word: string) {
     if (
       word.includes("i" + consonant) &&
       !(
-        word.includes("li" + consonant) ||
         word.startsWith("i") ||
+        word.includes("li" + consonant) ||
         word.includes("ri")
       )
     ) {
@@ -101,10 +100,10 @@ function changeGrammar(word: string) {
   // zanikanie samogłosek przed bezdźwięcznym "n"
   word = word.replace("aŋ", "ã");
   word = word.replace("ɛŋ", "ɔ̃");
-  word = word.replace("iŋ", "ĩ");
   word = word.replace("uŋ", "ũ");
 
   softArray.some((soft) => {
+    word = word.replace("iŋ" + soft, "ĩ" + soft);
     word = word.replace("ą" + soft, "ɔŋ" + soft);
     word = word.replace("ę" + soft, "ɛŋ" + soft);
     // wyjątki dla "ą" i "ę"
@@ -113,8 +112,8 @@ function changeGrammar(word: string) {
   });
 
   if (word.includes("w"))
-    voicelessArray.some((voiceless) => {
-      word = word.replace(voiceless + "w", voiceless + "f");
+    voicedArray.some((voiced) => {
+      word = word.replace(voiced + "w", voiced + "f");
     });
 
   // wyjątki z dźwięcznością głosek przy spółgłoskach
@@ -134,7 +133,7 @@ function changeGrammar(word: string) {
     word = word.replace("cz" + voiced, "dż" + voiced);
   });
 
-  // zmiękczone "l" i "r"
+  // zmiękczenie przed głoską bezdźwięczną
   voicelessArray.some((voiceless) => {
     if (word.startsWith("li"))
       word = word.replace("li" + voiceless, "l'i" + voiceless);
@@ -164,8 +163,26 @@ function changeGrammar(word: string) {
     });
   }
 
+  // wyjątki z dźwięcznością "hi"
+  if (word.includes("x")) {
+    voicelessArray.some((voiceless) => {
+      word = word.replace("xi" + voiceless, "çi" + voiceless);
+    });
+
+    if (word.startsWith("xi")) word = word.replace("xi", "çj");
+    word = word.replace("çji", "çi");
+    word = word.replace("xi", "ç");
+
+    vowelsArray.some((vowel) => {
+      if (word.endsWith(vowel + "x"))
+        word = word.replace(vowel + "x", vowel + "h");
+      if (word.endsWith("ç" + vowel))
+        word = word.replace("ç" + vowel, "çj" + vowel);
+    });
+  }
+
   // wyjątki z zapisem "rz"
-  if (word.includes("ʒi")) word = word.replace("ʒi", "rʑ");
+  word = word.replace("ʒi", "rʑ");
   word = word.replace("aʒ", "arz");
 
   // specjalne przypadki
@@ -175,13 +192,12 @@ function changeGrammar(word: string) {
     });
 
   word = word.replace("ɔ̃ʧ̑", "ɔn͇ʧ̑");
-  word = word.replace("oŋć", "oȵć");
+  word = word.replace("oŋʧ̑", "oȵʧ̑");
+  word = word.replace("ŋʨ̑", "ȵʨ̑");
 
   word = word.replace("dr̥z", "d͇ʒ");
   word = word.replace("pr̥z", "pʒ");
   word = word.replace("tr̥z", "t͇ʃ");
-
-  word = word.replace("rʑ", "ʒʲ");
 
   // zwracanie wartości
   return word;
