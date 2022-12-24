@@ -9,9 +9,10 @@ import rewrite from "@scripts/rewrite";
 
 import ReactGA from "react-ga";
 const TRACKING_ID = "G-N6HTG788NK";
-ReactGA.initialize(TRACKING_ID);
 
 export default function Home() {
+  ReactGA.initialize(TRACKING_ID);
+
   useEffect(() => {
     window.addEventListener("scroll", scrollFunction);
   });
