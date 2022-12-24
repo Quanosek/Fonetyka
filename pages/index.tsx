@@ -20,13 +20,32 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Polski zapis fonetyczny</title>
+        {/* meta */}
+        <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="mobile-wep-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        {/* info */}
+        <title>Fonetyka</title>
         <meta
           name="description"
-          content="Zmienia podany wyraz na poprawny polski zapis fonetyczny."
+          content="Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <meta
+          name="keywords"
+          content="Jakub Kłało, klalo.pl, generator, fonetyka, zapis fonetyczny, zapisu fonetycznego, AS, IPA, format, formatowanie, standard, standardy, za darmo, darmowy, human, humanizm, filologia polska, język polski, polskie wyrazy, wyraz, przekształcenie, przekształcanie"
+        />
+
+        {/* favicon */}
+        <link rel="icon" href="/images/favicon.ico" sizes="any" />
+        <link rel="icon" href="/images/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/images/icon-180x180.png" />
+
+        {/* manifest */}
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <main>
