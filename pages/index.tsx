@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import Head from "next/head";
+import Image from "next/image";
 import Script from "next/script";
 
 import style from "@styles/main.module.scss";
@@ -77,7 +78,12 @@ export default function Home() {
           className={style.scrollButton}
           title="Kliknij, aby powrócić na samą górę!"
         >
-          <img src="/images/arrow.svg"></img>
+          <Image
+            src="/images/arrow.svg"
+            height={50}
+            width={50}
+            alt="strzałka do góry"
+          />
         </button>
       </main>
 
