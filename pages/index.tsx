@@ -7,6 +7,10 @@ import Script from "next/script";
 import style from "@styles/main.module.scss";
 import rewrite from "@scripts/rewrite";
 
+import ReactGA from "react-ga";
+const TRACKING_ID = "G-N6HTG788NK";
+ReactGA.initialize(TRACKING_ID);
+
 export default function Home() {
   useEffect(() => {
     window.addEventListener("scroll", scrollFunction);
