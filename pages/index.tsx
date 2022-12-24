@@ -107,8 +107,8 @@ function confirmButton() {
     .replace(/[0-9]/gi, "") //remove numbers
     .replace(/[ -\/:-@\[-\`{-~]/gi, "\n") // remove special characters
     .replace(/ +(?= )/g, "") // remove additional spaces
-    .replace(/\n+(?=\n)/g, "") // remove additional enters
-    .replace(/\n$/, "")); // remove last line if empty
+    .replace(/^[\r\n]+|[\r\n]+$/g, "") // remove empty lines
+    .replace(/\n+(?=\n)/g, "")); // remove additional enters
 
   // function
   if (!input) {

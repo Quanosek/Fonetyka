@@ -1,4 +1,4 @@
-import { sonority } from "@scripts/rewrite";
+import { sonority, makeSofter } from "@scripts/rewrite";
 
 // podział liter alfabetu
 import letters from "./alphabet.json";
@@ -22,34 +22,32 @@ const grammar = {
   q: "ku",
   bi: "b́",
   ch: "h",
+  h: "χ",
   ci: "ć",
   cz: "č",
   di: "d'",
-  dzi: "ʒ́",
+  zi: "ź",
+  dź: "ʒ́",
   dz: "ʒ",
   rz: "ż",
   dż: "ǯ",
-  zi: "ź",
-  dź: "ʒ́",
   fi: "f́",
   gi: "ǵ",
-  h: "χ",
   ki: "ḱ",
   mi: "ḿ",
   ni: "ń",
   ó: "u",
   pi: "ṕ",
   si: "ś",
-  ti: "t'",
   sz: "š",
-  tż: "tš",
+  ti: "t'",
   wi: "v́",
   w: "v",
 };
 
 const softer = {
-  ą: "ä",
-  ę: "ė",
+  a: "ä",
+  e: "ė",
   o: "ȯ",
   u: "ü",
 };
@@ -97,7 +95,6 @@ function changeGrammar(word: string) {
 
   // zanikanie samogłosek z "ŋ"
   word = word.replace("ŋd", "ŋt");
-  word = word.replace("aŋ", "ą");
   word = word.replace("uŋ", "ų");
 
   // zmiana "ą" i "ę"
@@ -115,11 +112,13 @@ function changeGrammar(word: string) {
   // wyjątki z "ŋ"
   if (word.includes("ŋ")) {
     if (word.includes("ŋgi") || word.includes("ŋki"))
-      word = word.replace("ŋ", "ń");
+      word = word.replace("ŋ", "ŋ́");
 
     hardArray.some((hard) => {
       word = word.replace("ŋ" + hard, "n" + hard);
     });
+
+    word = word.replace("yn", "yŋ");
   }
 
   // dźwięczność "w"
@@ -163,7 +162,7 @@ function changeGrammar(word: string) {
 
   // zmiana wymowy przed głoskami dźwięcznymi na twardszą
   voicedArray.some((voiced) => {
-    word = word.replace(voiced + "yn", voiced + "y̨");
+    word = word.replace(voiced + "yŋ", voiced + "y̨");
     word = word.replace("cz" + voiced, "dż" + voiced);
   });
 
@@ -178,28 +177,43 @@ function changeGrammar(word: string) {
         word.includes("rz") ||
         word.includes("dz")
       )
-    )
+    ) {
       word = word.replace("z" + voiceless, "s" + voiceless);
+    }
+
+    word = word.replace("ą" + voiceless, "oṇ" + voiceless);
   });
 
+  // korekta
+  if (word.startsWith("ą") && word.length > 1) word = word.replace("an", "ą");
+
   // specjalne
-  if (word.endsWith("ąt")) word = word.replace("ąt", "oŋt");
+  if (word.endsWith("oṇt")) word = word.replace("oṇt", "oŋt");
   if (word.includes("rin")) word = word.replace("ri", "r'i");
   word = word.replace("rzi", "rź");
 
-  // zanik dźwięczności "ń"
-  if (word.includes("ń"))
-    hardArray.some((hard) => {
-      word = word.replace("ń" + hard, "į̯" + hard);
-    });
-
-  //! zmiękczanie głoski pomiędzy miękkimi
+  hardArray.some((hard) => {
+    word = word.replace("ń" + hard, "į̯" + hard);
+  });
 
   //! zamiana zapisu gramatycznego
   type grammarType = keyof typeof grammar;
+
   Object.keys(grammar).forEach((key) => {
-    word = word.replaceAll(key, grammar[key as grammarType]);
+    const value = grammar[key as grammarType];
+    word = word.replaceAll(key, value);
+
+    if (softArray.includes(key) && !softArray.includes(value))
+      softArray.push(value);
+    if (vowelsArray.includes(key) && !vowelsArray.includes(value))
+      vowelsArray.push(value);
+
+    if (!softArray.includes("i̯")) softArray.push("i̯");
+    if (!voicedArray.includes("v")) voicedArray.push("v");
   });
+
+  //! zmiękczanie głoski pomiędzy miękkimi
+  word = makeSofter(word, softArray, softer);
 
   // zanik wymowy pierwszej głoski przed głoską bezdźwięczną
   voicelessArray.some((voiceless) => {
@@ -213,21 +227,9 @@ function changeGrammar(word: string) {
       word = word.replace("r" + voiceless, "r̦" + voiceless);
   });
 
-  if (word.startsWith("ḿi")) word = word.replace("ḿi", "mi");
-
   // dźwięczność "ł"
   if (word.includes("ł")) word = sonority(word, "ł", "ł̦");
   if (!word.includes("u̯")) word = word.replace("au", "ał");
-
-  // wyjątek z dźwięcznością "ą"
-  if (word.includes("ą")) {
-    const notVoicedArray = alphabet.filter(
-      (letter) => !voicedArray.includes(letter)
-    );
-    notVoicedArray.some((x) => {
-      if (word.includes(x + "ą")) word = word.replace(x + "ą", x + "ǫ");
-    });
-  }
 
   // wyjątki z dźwięcznością "hi"
   if (word.includes("χ")) {
@@ -250,27 +252,38 @@ function changeGrammar(word: string) {
   // zmiękczenie "ż"
   word = word.replace("żi", "ž'i");
 
-  // ujednolicenia wymowy
-  voicedArray.some((voiced) => {
-    word = word.replace(voiced + "ia", voiced + "ja");
-    word = word.replace("ż" + voiced, "rz" + voiced);
-  });
-
   // specjalne przypadki
+  word = word.replace("jä", "i̯ä");
   word = word.replace("śb", "źb");
-
-  word = word.replace("ǫč", "oṇč");
   word = word.replace("oŋć", "ońć");
   word = word.replace("ŋć", "ńć");
 
-  word = word.replace("dr̦z", "ḍž");
-  word = word.replace("tr̦z", "ṭš");
-  word = word.replace("pr̦z", "pš");
+  softArray.some((soft) => {
+    word = word.replace(soft + "ćʒ́", soft + "ʒ́");
+  });
+
+  // ujednolicenie zapisu
+  voicedArray.some((voiced) => {
+    word = word.replace(voiced + "oṇ", voiced + "ǫ");
+    word = word.replace(voiced + "ia", voiced + "ja");
+    word = word.replace("ż" + voiced, "rz" + voiced);
+
+    word = word.replace(voiced + "r̦z", voiced + "ž");
+    word = word.replace(voiced + "r̦s", voiced + "ž");
+  });
+  word = word.replace("dž", "ḍž");
+
+  voicelessArray.some((voiceless) => {
+    word = word.replace(voiceless + "r̦z", voiceless + "š");
+    word = word.replace(voiceless + "r̦s", voiceless + "š");
+  });
+  word = word.replace("tš", "ṭš");
 
   // zmiękczenie końcówek wyrazów
-  vowelsArray.some((vowel) => {
-    word = word.replace(vowel + "ż", vowel + "š");
-  });
+  if (word.endsWith("ż"))
+    vowelsArray.some((vowel) => {
+      word = word.replace(vowel + "ż", vowel + "š");
+    });
 
   // anglicyzmy
   if (word.startsWith("vee")) word = word.replace("v", "ł");
@@ -280,7 +293,10 @@ function changeGrammar(word: string) {
   if (word.endsWith("ḿa")) word = word.replace("ḿa", "mja");
 
   // korekta "i"
-  if (word.includes("ii")) word = word.replace("ii", "i");
+  if (word.includes("i")) {
+    word = word.replace("b́i", "bi");
+    word = word.replace("ii", "i");
+  }
 
   // zwracanie wartości
   return word;
