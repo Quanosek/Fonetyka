@@ -82,7 +82,7 @@ export default function Home() {
           title="Kliknij, aby powrócić na samą górę!"
         >
           <Image
-            src="/images/arrow.svg"
+            src="/icons/arrow.svg"
             height={50}
             width={50}
             alt="strzałka do góry"

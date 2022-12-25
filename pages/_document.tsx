@@ -15,9 +15,9 @@ export default function Document() {
         <meta name="apple-mobile-web-app-title" content="Fonetyka" />
 
         {/* favicon */}
-        <link rel="icon" href="/images/favicon.ico" sizes="any" />
-        <link rel="icon" href="/images/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/images/icon-180x180.png" />
+        <link rel="icon" href="/logo/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/logo/apple-180x180.png" />
 
         {/* manifest */}
         <link rel="manifest" href="/manifest.json" />
