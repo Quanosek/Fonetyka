@@ -7,12 +7,7 @@ import Script from "next/script";
 import style from "@styles/main.module.scss";
 import rewrite from "@scripts/rewrite";
 
-import ReactGA from "react-ga";
-const TRACKING_ID = "G-N6HTG788NK";
-
 export default function Home() {
-  ReactGA.initialize(TRACKING_ID);
-
   useEffect(() => {
     window.addEventListener("scroll", scrollFunction);
   });
@@ -20,14 +15,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        {/* meta */}
-        <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="mobile-wep-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
         {/* info */}
         <title>Fonetyka</title>
         <meta
@@ -38,14 +25,6 @@ export default function Home() {
           name="keywords"
           content="Jakub Kłało, klalo.pl, generator, fonetyka, zapis fonetyczny, zapisu fonetycznego, AS, IPA, format, formatowanie, standard, standardy, za darmo, darmowy, human, humanizm, filologia polska, język polski, polskie wyrazy, wyraz, przekształcenie, przekształcanie"
         />
-
-        {/* favicon */}
-        <link rel="icon" href="/images/favicon.ico" sizes="any" />
-        <link rel="icon" href="/images/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/images/icon-180x180.png" />
-
-        {/* manifest */}
-        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <main>
