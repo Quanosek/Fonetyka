@@ -1,4 +1,4 @@
-## Generator zapisu fonetycznego w języku polskim
+## Generator zapisu fonetycznego
 
 Przy tworzeniu algorytmów aplikacji, niezwykle przydatny okazał się bardzo szczegółowo przygotowany kurs polskiej gramatyki i zapisu fonetycznego:
 

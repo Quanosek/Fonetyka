@@ -57,6 +57,10 @@ export function sonority(word: string, a: string, b: string) {
   return word;
 }
 
+export function updateAlphabet(array: any[], key: string, value: string) {
+  if (array.includes(key) && !array.includes(value)) array.push(value);
+}
+
 export function makeSofter(
   word: string,
   array: any[],
