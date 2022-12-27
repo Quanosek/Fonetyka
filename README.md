@@ -1,5 +1,3 @@
 ## Generator zapisu fonetycznego
 
-Przy tworzeniu algorytmów aplikacji, niezwykle przydatny okazał się bardzo szczegółowo przygotowany kurs polskiej gramatyki i zapisu fonetycznego:
-
-[grzegorz.jagodzinski.prv.pl/](http://grzegorz.jagodzinski.prv.pl/gram/)
+Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA

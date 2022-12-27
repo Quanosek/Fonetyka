@@ -72,8 +72,10 @@ export function makeSofter(
   const x = word.split("");
   for (let i = 0; i < x.length; i++) {
     if (vowelsArray.includes(x[i])) {
-      position = i;
-      break;
+      if (x[i] + x[i + 1] !== "i̯") {
+        position = i;
+        break;
+      }
     }
   }
 

@@ -39,7 +39,7 @@ const grammar = {
   gi: "ɟ",
   mi: "mʲ",
   ni: "ń",
-  ń: "ȵ",
+  ń: "ɲ",
   o: "ɔ",
   ó: "u",
   pi: "pʲ",
@@ -57,9 +57,9 @@ const grammar = {
 
 const softer = {
   a: "æ",
-  ɛ: "e",
-  ɔ: "o",
-  u: "ʉ",
+  ɛ: "ɛ̇",
+  ɔ: "ɔ̇",
+  u: "ü",
 };
 
 // główna funkcja
@@ -141,7 +141,7 @@ function changeGrammar(word: string) {
   word = sonority(word, "l", "l̥");
   word = sonority(word, "m", "m̥");
   word = sonority(word, "n", "n̥");
-  word = sonority(word, "ń", "ȵ̥");
+  word = sonority(word, "ń", "ɲ̊");
   word = sonority(word, "r", "r̥");
 
   // zmiękczanie po dodatkowej samogłosce
@@ -155,13 +155,13 @@ function changeGrammar(word: string) {
   // zmiana wymowy przed głoskami dźwięcznymi na twardszą
   if (word.includes("yŋ") && !word.includes("yŋi"))
     voicedArray.some((voiced) => {
-      word = word.replace(voiced + "yŋ", voiced + "ɨ̃");
+      word = word.replace(voiced + "yŋ", voiced + "ɨ̃n");
     });
 
   // zmiękczenie przed głoską bezdźwięczną
   voicelessArray.some((voiceless) => {
     if (word.startsWith("li"))
-      word = word.replace("li" + voiceless, "ʎi" + voiceless);
+      word = word.replace("li" + voiceless, "lʲi" + voiceless);
     if (
       !(
         word.includes("cz") ||
@@ -252,8 +252,8 @@ function changeGrammar(word: string) {
 
   // specjalne przypadki
   word = word.replace("ɕb", "ʑb");
-  word = word.replace("oŋʧ̑", "oȵʧ̑");
-  word = word.replace("ŋʨ̑", "ȵʨ̑");
+  word = word.replace("oŋʧ̑", "oɲʧ̑");
+  word = word.replace("ŋʨ̑", "ɲʨ̑");
   word = word.replace("fan", "van");
 
   // wyjątki ze zmiękczaniem
@@ -277,7 +277,7 @@ function changeGrammar(word: string) {
     // wyjątek
     word = word.replace("aʒ" + voiced, "arz" + voiced);
   });
-  word = word.replace("dʒ", "d͇ʒ");
+  word = word.replace("dʒ", "ḍʒ");
 
   voicelessArray.some((voiceless) => {
     word = word.replace("d" + voiceless, "t" + voiceless);
@@ -285,7 +285,7 @@ function changeGrammar(word: string) {
     word = word.replace(voiceless + "r̥z", voiceless + "ʃ");
     word = word.replace(voiceless + "r̥s", voiceless + "ʃ");
   });
-  word = word.replace("tʃ", "t͇ʃ");
+  word = word.replace("tʃ", "ṭʃ");
 
   // zmiękczenie końcówek wyrazów
   if (word.endsWith("ʒ"))
