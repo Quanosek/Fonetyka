@@ -18,7 +18,7 @@ export default (input: string) => {
   array.forEach((word) => {
     console.log(counters(word));
 
-    result += `[${format_IPA(word)}]&nbsp;[${format_AS(word)}]`;
+    result += `[${format_AS(word)}]&nbsp;[${format_IPA(word)}]`;
     result += "<br />";
   });
 
@@ -79,10 +79,7 @@ export function makeSofter(
   let position = 0;
   const x = word.split("");
   for (let i = 0; i < x.length; i++) {
-    if (
-      (Object.keys(softer).includes(x[i]) && array.includes(x[i + 1])) ||
-      x[i + 1] + x[i + 2] === "i̯"
-    ) {
+    if (Object.keys(softer).includes(x[i])) {
       position = i;
       break;
     }

@@ -169,8 +169,7 @@ function changeGrammar(word: string) {
 
   // specjalne
   word = word.replace("aur", "ałr");
-
-  if (word.includes("rin")) word = word.replace("ri", "rʲi");
+  word = word.replace("rin", "rʲin");
   word = word.replace("rzi", "rź");
 
   // zanik dźwięczności "ń"
@@ -232,18 +231,18 @@ function changeGrammar(word: string) {
   // wyjątki z dźwięcznością "hi"
   if (word.includes("x")) {
     voicelessArray.some((voiceless) => {
-      word = word.replace("xi" + voiceless, "çi" + voiceless);
+      word = word.replace("xi" + voiceless, "xʲi" + voiceless);
     });
 
-    if (word.startsWith("xi")) word = word.replace("xi", "çj");
-    word = word.replace("çji", "çi");
-    word = word.replace("xi", "ç");
+    if (word.startsWith("xi")) word = word.replace("xi", "x́j");
+    word = word.replace("x́jĩ", "xʲĩ");
+    word = word.replace("xi", "x́");
 
     vowelsArray.some((vowel) => {
       if (word.endsWith(vowel + "x"))
         word = word.replace(vowel + "x", vowel + "h");
-      if (word.endsWith("ç" + vowel))
-        word = word.replace("ç" + vowel, "çj" + vowel);
+      if (word.endsWith("x́" + vowel))
+        word = word.replace("x́" + vowel, "x́j" + vowel);
     });
   }
 
@@ -259,7 +258,7 @@ function changeGrammar(word: string) {
 
   softArray.some((soft) => {
     if (word.startsWith("k")) word = word.replace("k" + soft, "c" + soft);
-    if (word.includes("ʨ̑ʥ̑")) word = word.replace(soft + "ʨ̑ʥ̑", soft + "ʥ̑");
+    word = word.replace(soft + "ʨ̑ʥ̑", soft + "ʥ̑");
   });
 
   voicedArray.some((voiced) => {
@@ -292,6 +291,7 @@ function changeGrammar(word: string) {
     word = word.replace(voiceless + "ɔ̃n͇", voiceless + "ɔ̃n");
   });
 
+  word = word.replace("l̥v", "l̥f");
   word = word.replace("tʃ", "ṭʃ");
 
   // zmiękczenie końcówek wyrazów
@@ -314,8 +314,9 @@ function changeGrammar(word: string) {
   word = word.replace("çjɛr", "çɛr");
 
   // korekty
-  if (word.includes("rj")) word = word.replace("rj", "rʲj");
-  if (word.includes("ii")) word = word.replace("ii", "i");
+  word = word.replace("rj", "rʲj");
+  word = word.replace("iĩ", "i");
+  word = word.replace("ii", "i");
 
   // zwracanie wartości
   return word;

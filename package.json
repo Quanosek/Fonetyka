@@ -1,11 +1,11 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "name": "fonetyka",
   "description": "Generator zapisu fonetycznego - przekształcanie wyrazów w języku polskim na zapis fonetyczny w standardach AS i IPA",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 4000",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,7 +19,6 @@
     "next-pwa": "^5.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-ga": "^3.3.1",
     "sass": "^1.57.1",
     "the-new-css-reset": "^1.8.2",
     "typescript": "4.9.4"
