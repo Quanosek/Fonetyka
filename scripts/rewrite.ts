@@ -18,7 +18,7 @@ export default (input: string) => {
   array.forEach((word) => {
     console.log(counters(word));
 
-    result += `[${format_AS(word)}] [${format_IPA(word)}]`;
+    result += `[${format_IPA(word)}] [${format_AS(word)}]`;
     result += "<br />";
   });
 
@@ -64,18 +64,24 @@ export function updateAlphabet(array: any[], key: string, value: string) {
 export function makeSofter(
   word: string,
   array: any[],
-  softer: { [x: string]: any; a?: string; ɛ?: string; ɔ?: string; u?: string }
+  softer: {
+    [x: string]: any;
+    a?: string;
+    e?: string;
+    ɛ?: string;
+    o?: string;
+    ɔ?: string;
+    u?: string;
+  }
 ) {
   type softerType = keyof typeof softer;
 
   let position = 0;
   const x = word.split("");
   for (let i = 0; i < x.length; i++) {
-    if (vowelsArray.includes(x[i])) {
-      if (x[i] + x[i + 1] !== "i̯") {
-        position = i;
-        break;
-      }
+    if (Object.keys(softer).includes(x[i])) {
+      position = i;
+      break;
     }
   }
 
@@ -96,6 +102,16 @@ export function makeSofter(
       }
     });
   });
+
+  return word;
+}
+
+export function vowelsAccent(word: string, a: string, b: string) {
+  word = word.replace(a + "m", b + "m");
+  word = word.replace(a + "n", b + "n");
+  word = word.replace(a + "ŋ", b + "ŋ");
+  word = word.replace(a + "ń", b + "ń");
+  word = word.replace(a + "ɲ", b + "ɲ");
 
   return word;
 }
