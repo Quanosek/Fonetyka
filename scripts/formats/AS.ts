@@ -47,7 +47,7 @@ const grammar = {
   mi: "mʹj",
   ni: "ń",
   ó: "u",
-  pi: "ṕj",
+  pi: "pʹj",
   si: "ś",
   sz: "š",
   ti: "tʹj",
