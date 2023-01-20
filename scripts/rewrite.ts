@@ -9,6 +9,8 @@ const consonantsArray = alphabet.filter(
   (letter) => !vowelsArray.includes(letter)
 );
 
+const voicelessArray = letters.voiceless;
+
 // główna funkcja
 export default (input: string) => {
   input = input.toLowerCase();
@@ -118,5 +120,26 @@ export function vowelsAccent(word: string, a: string, b: string) {
   word = word.replace(a + "j̃", b + "j̃");
   word = word.replace(a + "ĩ ̯", b + "ĩ ̯");
 
+  return word;
+}
+
+export function specialSofter(word: string, a: string, b: string) {
+  voicelessArray.some((voiceless) => {
+    word = word.replace(a + voiceless, b + voiceless);
+  });
+
+  if (word.endsWith(a)) word = word.replace(a, b);
+
+  return word;
+}
+
+export function reduceRepeat(word: string) {
+  const splitted = word.split("");
+
+  for (let i = 0; i < splitted.length; i++) {
+    if (splitted[i] === splitted[i - 1]) splitted[i] = "•";
+  }
+
+  word = splitted.join("");
   return word;
 }
