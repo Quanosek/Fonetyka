@@ -380,7 +380,6 @@ function changeGrammar(word: string) {
   word = word.replace("w̃w", "w");
   word = word.replace("rj", "rʲj");
 
-  console.log(word);
   word = word.replace("iĩ", "i");
   word = word.replace("ii", "i");
 
