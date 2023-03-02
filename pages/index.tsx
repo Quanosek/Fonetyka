@@ -1,36 +1,35 @@
-import { useEffect } from "react";
-
 import Head from "next/head";
 import Image from "next/image";
-import Script from "next/script";
+import { useEffect } from "react";
 
-import style from "@styles/main.module.scss";
-import rewrite from "@scripts/rewrite";
+import style from "@/styles/main.module.scss";
+import rewrite from "@/scripts/rewrite";
 
 export default function Home() {
   useEffect(() => {
-    window.addEventListener("scroll", scrollFunction);
+    window.addEventListener("scroll", () => {
+      const scrollButton = document.getElementById(
+        "scrollButton"
+      ) as HTMLInputElement;
+      const scrollStyle = scrollButton.style;
+
+      if (
+        (document.body.scrollTop || document.documentElement.scrollTop) > 280
+      ) {
+        scrollStyle.visibility = "visible";
+        scrollStyle.bottom = "1.3rem";
+        scrollStyle.opacity = "1";
+      } else {
+        scrollStyle.visibility = "";
+        scrollStyle.bottom = "";
+        scrollStyle.opacity = "";
+      }
+    });
   });
 
   return (
     <>
-      {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-N6HTG788NK"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-N6HTG788NK');
-        `}
-      </Script>
-
       <Head>
-        {/* info */}
         <title>Fonetyka</title>
         <meta
           name="description"
@@ -55,24 +54,24 @@ export default function Home() {
         <div className={style.main}>
           {/* input  */}
           <textarea
-            data-scrollsync
-            className="scrollable_item_1"
             id="input"
+            className="scrollable_item_1"
             placeholder="Wpisz tutaj frazę"
+            data-scrollsync
           ></textarea>
           {/* magic button */}
           <button
-            onClick={confirmButton}
             className={style.button}
             title="Kliknij, aby zamienić na zapis fonetyczny!"
+            onClick={confirmButton}
           >
             Zamień
           </button>
           {/* output */}
           <div
-            data-scrollsync
             id="output"
             className={`${style.output} scrollable_item_2`}
+            data-scrollsync
           >
             <p>Poczekaj na wyniki...</p>
           </div>
@@ -81,6 +80,7 @@ export default function Home() {
         {/* history */}
         <div className={style.historyHandler}>
           <h2>Historia wyszukiwań:</h2>
+
           <div id="historyList" className={style.history}>
             <p id="placeholderText">
               Zacznij wpisywać różne frazy,
@@ -91,23 +91,25 @@ export default function Home() {
         </div>
 
         <button
-          onClick={topFunction}
           id="scrollButton"
           className={style.scrollButton}
           title="Kliknij, aby powrócić na samą górę!"
+          onClick={() => {
+            document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+          }}
         >
           <Image
+            alt="strzałka do góry"
             src="/icons/arrow.svg"
             height={50}
             width={50}
-            alt="strzałka do góry"
           />
         </button>
       </main>
 
       <footer>
         <p>
-          Strona stworzona przez{" "}
+          Stworzone z 💙 przez{" "}
           <a href="https://github.com/Quanosek">Jakuba Kłało</a>.
         </p>
         <p>
@@ -115,8 +117,6 @@ export default function Home() {
           <a href="https://www.klalo.pl">klalo.pl</a>
         </p>
       </footer>
-
-      <Script src="https://cdn.jsdelivr.net/npm/easy-scroll-sync@latest/dist/easy-scroll-sync.min.js"></Script>
     </>
   );
 }
@@ -200,26 +200,4 @@ function addToHistory(input: string, output: string) {
       });
     }
   });
-}
-
-function scrollFunction() {
-  const scrollButton = document.getElementById(
-    "scrollButton"
-  ) as HTMLInputElement;
-  const scrollStyle = scrollButton.style;
-
-  if ((document.body.scrollTop || document.documentElement.scrollTop) > 300) {
-    scrollStyle.visibility = "visible";
-    scrollStyle.bottom = "1.3rem";
-    scrollStyle.opacity = "1";
-  } else {
-    scrollStyle.visibility = "";
-    scrollStyle.bottom = "";
-    scrollStyle.opacity = "";
-  }
-}
-
-function topFunction() {
-  document.body.scrollTo({ top: 0, behavior: "smooth" });
-  document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
 }

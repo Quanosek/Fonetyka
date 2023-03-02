@@ -22,6 +22,7 @@ export default function Document() {
         {/* manifest */}
         <link rel="manifest" href="/manifest.json" />
       </Head>
+
       <body>
         <Main />
         <NextScript />
