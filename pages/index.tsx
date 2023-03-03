@@ -43,6 +43,7 @@ export default function Home() {
 
       <main>
         <div className={styles.algorithm}>
+          <Image alt="Fonetyka" src="/logo/icon.svg" width={300} height={300} />
           <h1>Generator Zapisu Fonetycznego</h1>
           <p>
             Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w
@@ -138,15 +139,15 @@ function magicButton() {
   const inputElement = document.getElementById("input") as HTMLInputElement;
   const outputElement = document.getElementById("output") as HTMLInputElement;
 
-  // reformat input text
-  let input = (inputElement.value = inputElement.value
+  let input = inputElement.value
     .replace(/[0-9]/gi, "") //remove numbers
     .replace(/[ -\/:-@\[-\`{-~]/gi, "\n") // remove special characters
     .replace(/ +(?= )/g, "") // remove additional spaces
     .replace(/^[\r\n]+|[\r\n]+$/g, "") // remove empty lines
-    .replace(/\n+(?=\n)/g, "")); // remove additional enters
+    .replace(/\n+(?=\n)/g, ""); // remove additional enters
 
-  // function
+  inputElement.value = input;
+
   if (!input) {
     outputElement.innerHTML = "<p>Poczekaj na wyniki...</p>"; // placeholder
     alert("Nie wpisano żadnych liter!");
@@ -157,19 +158,19 @@ function magicButton() {
     inputElement.scrollTop = 0;
     outputElement.innerHTML = output;
 
-    // remove placeholder
+    // remove history section placeholder
     const placeholderText = document.getElementById(
       "placeholderText"
     ) as HTMLInputElement;
     if (placeholderText) placeholderText.remove();
 
-    /* HISTORY HANDLING */
+    // history handler
     const handler = document.createElement("div");
     handler.setAttribute("id", input);
     handler.setAttribute("class", styles.historyPosition);
 
-    // timestamp
-    const date = new Date().toLocaleTimeString(undefined, {
+    // set timestamp
+    const date = new Date().toLocaleTimeString("pl-PL", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
@@ -192,18 +193,22 @@ function magicButton() {
     resultText.innerHTML = output;
     handler.appendChild(resultText);
 
+    // adding result to history
     const historyList = document.getElementById(
       "historyList"
     ) as HTMLInputElement;
-    if (historyList.firstElementChild?.id !== input)
-      historyList.insertBefore(handler, historyList.firstChild);
 
-    // click event
+    if (historyList.firstElementChild?.id !== input) {
+      historyList.insertBefore(handler, historyList.firstChild);
+    }
+
+    // on click event
     handler.addEventListener("click", (e) => {
       if (e.target instanceof Element) {
         const inputElement = document.getElementById(
           "input"
         ) as HTMLInputElement;
+
         inputElement.value = e.target.id;
         magicButton();
 
