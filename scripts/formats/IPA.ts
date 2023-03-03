@@ -77,7 +77,7 @@ const softer = {
 };
 
 // główna funkcja
-export default function (word: string) {
+export default function format_IPA(word: string) {
   let changed = "";
 
   changed = changeGrammar(word);

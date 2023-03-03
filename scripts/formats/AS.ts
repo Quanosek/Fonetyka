@@ -71,7 +71,7 @@ const softer = {
 };
 
 // główna funkcja
-export default function (word: string) {
+export default function format_AS(word: string) {
   let changed = "";
 
   changed = changeGrammar(word);

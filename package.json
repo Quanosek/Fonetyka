@@ -1,5 +1,5 @@
 {
-  "version": "0.6.3",
+  "version": "0.7.0",
   "name": "fonetyka",
   "description": "Generator zapisu fonetycznego - przekształcanie wyrazów w języku polskim na zapis fonetyczny w standardach AS i IPA",
   "scripts": {
