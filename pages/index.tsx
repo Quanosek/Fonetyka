@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
 
-import styles from "@/styles/main.module.scss";
+import styles from "@/styles/index.module.scss";
 import rewrite from "@/scripts/rewrite";
 
 export default function Home() {
@@ -31,14 +31,6 @@ export default function Home() {
     <>
       <Head>
         <title>Fonetyka</title>
-        <meta
-          name="description"
-          content="Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA."
-        />
-        <meta
-          name="keywords"
-          content="Jakub Kłało, klalo.pl, konwerter, zamiana, generator, fonetyka, zapis fonetyczny, zapisu fonetycznego, AS, IPA, format, formatowanie, standard, standardy, za darmo, darmowy, human, humanizm, filologia polska, język polski, polskie wyrazy, wyraz, przekształcenie, przekształcanie, gramatyka, wymowa"
-        />
       </Head>
 
       <main>
@@ -127,7 +119,7 @@ export default function Home() {
           <a href="https://github.com/Quanosek">Jakuba&nbsp;Kłało</a>.
         </p>
         <p>
-          Wszelki prawa zastrzeżone &#169;&nbsp;2023 │ domena&nbsp;
+          Wszelkie prawa zastrzeżone &#169;&nbsp;2023 │ domena&nbsp;
           <a href="https://www.klalo.pl">klalo.pl</a>
         </p>
       </footer>

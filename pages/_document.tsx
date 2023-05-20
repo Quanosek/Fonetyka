@@ -4,9 +4,13 @@ export default function Document() {
   return (
     <Html lang="pl">
       <Head>
-        {/* meta */}
         <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta name="theme-color" content="#ffffff" />
+
+        <meta
+          name="description"
+          content="Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA."
+        />
 
         {/* apple */}
         <meta name="mobile-wep-app-capable" content="yes" />
@@ -19,7 +23,7 @@ export default function Document() {
         <link rel="icon" href="/logo/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/logo/apple-180x180.png" />
 
-        {/* manifest */}
+        {/* working PWA */}
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
