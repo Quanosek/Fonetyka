@@ -12,7 +12,7 @@ const consonantsArray = alphabet.filter(
 const voicelessArray = letters.voiceless;
 
 // główna funkcja
-export default (input: string) => {
+export default function Rewrite(input: string) {
   input = input.toLowerCase();
   const array = input.split(/[" "|"\n"]/g);
 
@@ -25,7 +25,7 @@ export default (input: string) => {
   });
 
   return result.toString();
-};
+}
 
 // zliczanie elementów wyrazu
 export function counters(word: string) {
