@@ -46,7 +46,7 @@ export default function Home() {
         <Image
           className={styles.title}
           alt="Generator Zapisu Fonetycznego"
-          src="/images/title.svg"
+          src="/icons/title.svg"
           width={400}
           height={120}
           priority={true}
@@ -100,7 +100,7 @@ export default function Home() {
         >
           <Image
             alt="strzałka do góry"
-            src="/images/arrow.svg"
+            src="/icons/arrow.svg"
             height={50}
             width={50}
             draggable={false}

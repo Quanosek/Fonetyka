@@ -1,10 +1,12 @@
 {
   "name": "Generator zapisu fonetycznego",
   "short_name": "Fonetyka",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+
   "icons": [
     {
       "src": "/logo/pwa-icon.svg",

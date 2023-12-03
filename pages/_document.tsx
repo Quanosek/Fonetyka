@@ -4,9 +4,8 @@ export default function Document() {
   return (
     <Html lang="pl">
       <Head>
-        <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta name="theme-color" content="#ffffff" />
-
+        <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <meta
           name="description"
           content="Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA."
@@ -15,8 +14,8 @@ export default function Document() {
         {/* apple */}
         <meta name="mobile-wep-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="white" />
         <meta name="apple-mobile-web-app-title" content="Fonetyka" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="white" />
 
         {/* favicon */}
         <link rel="icon" href="/logo/favicon.ico" sizes="any" />
