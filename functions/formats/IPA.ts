@@ -81,7 +81,7 @@ export default function format_IPA(word: string) {
   let changed = "";
 
   changed = changeGrammar(word);
-  console.log("IPA: " + changed);
+  // console.log("IPA: " + changed);
 
   changed = reduceRepeat(changed);
   return changed;

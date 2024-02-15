@@ -11,40 +11,6 @@ const consonantsArray = alphabet.filter(
 
 const voicelessArray = letters.voiceless;
 
-// główna funkcja
-export default function Rewrite(input: string) {
-  input = input.toLowerCase();
-  const array = input.split(/[" "|"\n"]/g);
-
-  let result = "";
-  array.forEach((word) => {
-    console.log(counters(word));
-
-    result += `[${format_AS(word)}] [${format_IPA(word)}]`;
-  });
-
-  return result.toString();
-}
-
-// zliczanie elementów wyrazu
-export function counters(word: string) {
-  const counters = {
-    word: word,
-    letters: word.length,
-    vowels: 0,
-    consonants: 0,
-  };
-
-  word.split("").forEach((letter) => {
-    vowelsArray.some((vowel) => {
-      if (letter === vowel) counters.vowels++;
-    });
-  });
-
-  counters.consonants = word.length - counters.vowels;
-  return counters;
-}
-
 // wyjątki z dźwięcznością głosek przy spółgłoskach
 export function sonority(word: string, a: string, b: string) {
   consonantsArray.some((con1) => {
@@ -58,15 +24,17 @@ export function sonority(word: string, a: string, b: string) {
   return word;
 }
 
-export function updateAlphabet(array: any[], key: string, value: string) {
+// zmiana alfabetu dla danego systemu zapisu
+export function updateAlphabet(array: string[], key: string, value: string) {
   if (array.includes(key) && !array.includes(value)) array.push(value);
 }
 
+// zamiana głoski na miększą zgodnie z zasadą gramatyki
 export function makeSofter(
   word: string,
-  array: any[],
+  array: string[],
   softer: {
-    [x: string]: any;
+    [x: string]: string | undefined;
     a?: string;
     e?: string;
     ɛ?: string;
@@ -110,6 +78,7 @@ export function makeSofter(
   return word;
 }
 
+// dodawanie zapisu akcentów w szczególnych przypadkach
 export function vowelsAccent(word: string, a: string, b: string) {
   word = word.replace(a + "m", b + "m");
   word = word.replace(a + "n", b + "n");
@@ -122,6 +91,7 @@ export function vowelsAccent(word: string, a: string, b: string) {
   return word;
 }
 
+// zmiękczanie wyjątków
 export function specialSofter(word: string, a: string, b: string) {
   voicelessArray.some((voiceless) => {
     word = word.replace(a + voiceless, b + voiceless);
@@ -132,6 +102,7 @@ export function specialSofter(word: string, a: string, b: string) {
   return word;
 }
 
+// redukcja powtórzeń liter
 export function reduceRepeat(word: string) {
   const splitted = word.split("");
 
@@ -141,4 +112,18 @@ export function reduceRepeat(word: string) {
 
   word = splitted.join("");
   return word;
+}
+
+// zwracanie obiektu z danymi
+export default function rewrite(input: string) {
+  const words = input.toLowerCase().split(/[" "|"\n"]/g);
+
+  const results = new Array();
+  words.forEach((word) => {
+    const AS = format_AS(word);
+    const IPA = format_IPA(word);
+    results.push(`[${AS}] [${IPA}]`);
+  });
+
+  return results;
 }

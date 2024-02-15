@@ -75,7 +75,7 @@ export default function format_AS(word: string) {
   let changed = "";
 
   changed = changeGrammar(word);
-  console.log("AS: " + changed);
+  // console.log("AS: " + changed);
 
   changed = reduceRepeat(changed);
   return changed;
