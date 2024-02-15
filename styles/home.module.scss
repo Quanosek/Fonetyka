@@ -1,35 +1,33 @@
-.algorithm {
-  display: none;
-}
-
-.title {
-  height: 10rem;
-  width: auto;
+.titleImage {
   user-select: none;
+
+  @media (max-width: 768px) {
+    width: auto;
+    max-height: 25vw;
+  }
 }
 
 $area_height: 26rem;
 $max_width: 1440px;
 
 .main {
-  width: 100%;
-  max-width: $max_width;
+  width: min(100%, $max_width);
   display: flex;
   gap: 1%;
 
   textarea,
-  div.output {
-    padding: 1rem;
-    height: $area_height;
+  div {
+    padding: 1.5rem 1rem;
     width: 50%;
+    height: $area_height;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     color: #101010;
     background-color: #e9e9e9;
-    font-family: "Charis SIL Bold";
-    font-size: 125%;
+    font-size: 150%;
+    font-weight: bold;
     border: 5px solid #e9e9e9;
     border-radius: 0.35rem;
     box-shadow: 6px 10px 25px -12px #000000;
@@ -49,6 +47,7 @@ $max_width: 1440px;
 
     &::-webkit-scrollbar-thumb {
       background-color: #939393;
+
       &:hover {
         background-color: #c1c1c1;
       }
@@ -59,20 +58,49 @@ $max_width: 1440px;
 
   textarea {
     padding-right: $padding;
+    text-align: center;
   }
 
-  div.output {
+  div {
     padding-left: $padding;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    filter: brightness(0.9);
 
-    p {
+    .placeholder {
       font-size: 95%;
-      opacity: 0.5;
+      opacity: 70%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    textarea,
+    div {
+      width: 100%;
+      height: 18rem;
+      font-size: 155%;
+    }
+
+    textarea {
+      padding: 1.5rem 0 2.25rem;
+    }
+
+    div {
+      padding: 2.8rem 0 0.8rem;
     }
   }
 }
 
 .magicButton {
+  z-index: 1;
   margin: -3rem;
   position: relative;
   top: calc($area_height / 2);
@@ -81,45 +109,73 @@ $max_width: 1440px;
   height: $size;
   width: $size;
 
+  font-size: 115%;
+  font-weight: 500;
+  color: #000000;
+  background-color: #8fd2ff;
   box-shadow: 0 10px 25px -14px #000000, 0 0 5px -2px #000000;
-  font-size: 135%;
-  cursor: pointer;
 
-  &:active {
-    transform: translateY(3px);
-    box-shadow: 0 5px 15px -10px #000000;
+  @media (min-width: 769px) {
+    &:hover {
+      background-color: #99c9fa;
+    }
+
+    &:active {
+      background-color: #93b7f5;
+      transform: translateY(3px);
+      box-shadow: 0 5px 15px -10px #000000;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin: -2.6rem;
+    top: 0;
+
+    width: 7rem;
+    height: 4rem;
+    font-size: 125%;
+    border-radius: 25%;
   }
 }
 
 .historyHandler {
   margin-bottom: 2rem;
+  width: min(65%, calc($max_width * 0.75));
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
 
-  width: 65%;
-  max-width: calc($max_width * 0.75);
+  @media (max-width: 768px) {
+    margin: 0.5rem 0 2.5rem;
+    width: 95%;
+  }
 
   h2 {
     margin: 1rem;
-    font-size: 160%;
+    font-size: 150%;
+    font-weight: 550;
     text-shadow: 4px 3px 12px #000000;
   }
 }
 
 .history {
   padding: 8px;
-  min-height: 16rem;
   width: 100%;
+  min-height: 16rem;
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 4px;
 
-  background-color: rgba(#e9e9e9, 0.33);
   border-radius: 0.6rem;
+  background-color: rgba(#e9e9e9, 0.33);
   box-shadow: 6px 10px 25px -12px #000000;
   text-shadow: 4px 3px 45px #000000;
+
+  @media (max-width: 768px) {
+    min-height: 20rem;
+  }
 
   p {
     margin-top: 1rem;
@@ -135,7 +191,6 @@ $max_width: 1440px;
   text-align: left;
   gap: 5px;
 
-  font-family: "Charis SIL Bold";
   font-size: 105%;
   color: #101010;
   background-color: rgba(#e9e9e9, 0.5);
@@ -144,14 +199,18 @@ $max_width: 1440px;
   text-shadow: none;
   cursor: pointer;
 
-  @media (min-width: 800px) {
+  @media (min-width: 769px) {
     &:hover {
       background-color: rgba(#e9e9e9, 0.65);
 
       img {
-        opacity: 1;
+        opacity: 100%;
       }
     }
+  }
+
+  @media (max-width: 768px) {
+    background-color: rgba(#e9e9e9, 0.65);
   }
 
   p {
@@ -161,9 +220,9 @@ $max_width: 1440px;
   }
 
   .firstText {
+    max-width: 85%;
     font-size: 106%;
     font-weight: 600;
-    max-width: 85%;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -176,12 +235,11 @@ $max_width: 1440px;
 
   .timeDate {
     margin: -4px -5px;
-    height: 0;
     position: relative;
     top: 0;
     right: 0;
 
-    font-family: "Brutal Type Medium", "Gill Sans MT";
+    height: 0;
     font-size: 85%;
     text-align: right;
   }
@@ -193,83 +251,31 @@ $max_width: 1440px;
   opacity: 0;
 
   z-index: 1;
-  height: 4rem;
-  width: 4rem;
   position: fixed;
   bottom: -2rem;
   right: 1.5rem;
+
+  width: 4rem;
+  height: 4rem;
   font-size: 18px;
   background-color: #4be1da;
   box-shadow: 0 6px 20px -8px #000000;
   user-select: none;
 
-  img {
-    padding: 2px;
-    max-inline-size: unset;
-    max-block-size: unset;
-  }
-
-  @media (min-width: 800px) {
+  @media (min-width: 769px) {
     &:hover {
       background-color: #69eedc;
     }
   }
-}
 
-// on mobile
-@media (max-width: 800px) {
-  .title {
-    height: auto;
-    max-height: 8rem;
-    width: 100%;
-  }
-
-  .main {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    textarea,
-    div.output {
-      height: 18rem;
-      width: 100%;
-      font-size: 155%;
-    }
-
-    textarea {
-      padding: 0.8rem 0 2.25rem;
-    }
-
-    div.output {
-      padding: 2.25rem 0 0.8rem;
-    }
-  }
-
-  .magicButton {
-    margin: -2.6rem;
-    height: 4rem;
-    width: 7rem;
-
-    top: 0;
-    border-radius: 25%;
-    font-size: 155%;
-  }
-
-  .historyHandler {
-    margin: 0.5rem 0 2.5rem;
-    width: 95%;
-  }
-
-  .history {
-    min-height: 20rem;
-  }
-
-  .historyPosition {
-    background-color: rgba(#e9e9e9, 0.65);
-  }
-
-  .scrollButton {
-    scale: 0.85;
+  @media (max-width: 768px) {
     right: 1rem;
+    scale: 0.85;
+  }
+
+  img {
+    padding: 2px;
+    max-inline-size: unset;
+    max-block-size: unset;
   }
 }

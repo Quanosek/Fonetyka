@@ -5,7 +5,7 @@ import {
   vowelsAccent,
   specialSofter,
   reduceRepeat,
-} from "@/scripts/rewrite";
+} from "../rewrite";
 
 // podział liter alfabetu
 import letters from "./alphabet.json";

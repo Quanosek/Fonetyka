@@ -1,7 +1,7 @@
-import format_AS from "@formats/AS";
-import format_IPA from "@formats/IPA";
+import format_AS from "@/functions/formats/AS";
+import format_IPA from "@/functions/formats/IPA";
 
-import letters from "@formats/alphabet.json";
+import letters from "@/functions/formats/alphabet.json";
 const alphabet = letters.all;
 
 const vowelsArray = letters.vowels;
@@ -20,8 +20,7 @@ export default function Rewrite(input: string) {
   array.forEach((word) => {
     console.log(counters(word));
 
-    result += `[${format_AS(word)}]&nbsp;[${format_IPA(word)}]`;
-    result += "<br />";
+    result += `[${format_AS(word)}] [${format_IPA(word)}]`;
   });
 
   return result.toString();
