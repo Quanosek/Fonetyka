@@ -244,15 +244,23 @@ $max_width: 1440px;
   }
 }
 
-.scrollButton {
-  z-index: 1;
-  position: fixed;
-  bottom: 2rem;
-  right: 1.5rem;
+.scrollTopHandler {
+  position: sticky;
+  bottom: min(5rem, 5%);
+  width: 100%;
 
-  width: 4rem;
-  height: 4rem;
-  font-size: 18px;
+  @media (max-width: 768px) {
+    height: 3rem;
+  }
+}
+
+.scrollTopButton {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  padding: 0.5rem;
   background-color: #4be1da;
   box-shadow: 0 6px 20px -8px #000000;
   user-select: none;
@@ -264,6 +272,7 @@ $max_width: 1440px;
   }
 
   @media (max-width: 768px) {
+    bottom: 0.5rem;
     right: 1rem;
     scale: 0.85;
   }

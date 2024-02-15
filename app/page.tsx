@@ -19,14 +19,9 @@ export default function HomePage() {
   const [results, setResults] = useState<string[]>([]);
   const [historyLog, setHistoryLog] = useState<any>([]);
 
+  // activate scroll-to-top button
   useEffect(() => {
-    const scrollHandler = () => {
-      if (window.scrollY > 200) {
-        showScrollTop(true);
-      } else {
-        showScrollTop(false);
-      }
-    };
+    const scrollHandler = () => showScrollTop(window.scrollY > 200);
 
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
@@ -117,22 +112,24 @@ export default function HomePage() {
         </div>
       </div>
 
-      <button
-        title="Kliknij, aby powrócić na samą górę!"
-        className={styles.scrollButton}
-        style={{ display: scrollTop ? "flex" : "none" }}
-        onClick={() => {
-          document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-      >
-        <Image
-          alt="strzałka do góry"
-          src="/images/arrow.svg"
-          height={50}
-          width={50}
-          draggable={false}
-        />
-      </button>
+      <div className={styles.scrollTopHandler}>
+        <button
+          title="Kliknij, aby powrócić na samą górę!"
+          className={styles.scrollTopButton}
+          style={{ display: scrollTop ? "flex" : "none" }}
+          onClick={() => {
+            document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          <Image
+            alt="strzałka do góry"
+            src="/images/arrow.svg"
+            height={50}
+            width={50}
+            draggable={false}
+          />
+        </button>
+      </div>
     </main>
   );
 }
