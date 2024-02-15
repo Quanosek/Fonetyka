@@ -12,12 +12,18 @@ const domine = Domine({
   display: "swap",
 });
 
+interface HistoryLog {
+  date: string;
+  input: string;
+  output: string[];
+}
+
 export default function HomePage() {
   const [scrollTop, showScrollTop] = useState<boolean>(false);
 
   const [textInput, setTextInput] = useState<string>("");
   const [results, setResults] = useState<string[]>([]);
-  const [historyLog, setHistoryLog] = useState<any>([]);
+  const [historyLog, setHistoryLog] = useState<HistoryLog[]>([]);
 
   // activate scroll-to-top button
   useEffect(() => {
@@ -26,6 +32,42 @@ export default function HomePage() {
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
+
+  const magicButton = (input: string) => {
+    if (!input) return alert("Nie wpisano żadnych liter!");
+
+    // reformat input
+    const newInput = input
+      .replace(/[0-9]/gi, "")
+      .replace(/[ -\/:-@\[-\`{-~]/gi, "\n")
+      .replace(/ +(?= )/g, "")
+      .replace(/^[\r\n]+|[\r\n]+$/g, "")
+      .replace(/\n+(?=\n)/g, "");
+
+    setTextInput(newInput);
+
+    const result = rewrite(newInput);
+    setResults(result);
+
+    // before adding check if not included
+    if (historyLog.length > 0) {
+      if (historyLog[0].input === newInput) return;
+    }
+
+    // save to history array
+    setHistoryLog([
+      {
+        date: new Date().toLocaleTimeString("pl-PL", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+        input: newInput,
+        output: result,
+      },
+      ...historyLog,
+    ]);
+  };
 
   return (
     <main>
@@ -50,31 +92,7 @@ export default function HomePage() {
         <button
           title="Kliknij, aby wygenerować na zapis fonetyczny"
           className={styles.magicButton}
-          onClick={() => {
-            const newInput = textInput
-              .replace(/[0-9]/gi, "")
-              .replace(/[ -\/:-@\[-\`{-~]/gi, "\n")
-              .replace(/ +(?= )/g, "")
-              .replace(/^[\r\n]+|[\r\n]+$/g, "")
-              .replace(/\n+(?=\n)/g, "");
-
-            setTextInput(newInput);
-            const result = rewrite(newInput);
-            setResults(result);
-
-            setHistoryLog([
-              {
-                date: new Date().toLocaleTimeString("pl-PL", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                }),
-                input: newInput,
-                output: result,
-              },
-              ...historyLog,
-            ]);
-          }}
+          onClick={() => magicButton(textInput)}
         >
           <p>Zamień</p>
         </button>
@@ -93,11 +111,18 @@ export default function HomePage() {
         <div className={styles.history}>
           {(!historyLog.length && <p>Lista na razie jest pusta</p>) || (
             <>
-              {historyLog.map((_: any, i: number) => {
+              {historyLog.map((_, i) => {
                 const log = historyLog[i];
 
                 return (
-                  <div className={styles.historyLog} key={i}>
+                  <div
+                    key={i}
+                    className={styles.historyLog}
+                    onClick={() => {
+                      setTextInput(log.input);
+                      magicButton(log.input);
+                    }}
+                  >
                     <div>
                       <p className={styles.inputValue}>{log.input}</p>
                       <p className={styles.timeDate}>{log.date}</p>
@@ -114,16 +139,14 @@ export default function HomePage() {
 
       <div className={styles.scrollTopHandler}>
         <button
-          title="Kliknij, aby powrócić na samą górę!"
+          title="Powrót na górę strony"
           className={styles.scrollTopButton}
           style={{ display: scrollTop ? "flex" : "none" }}
-          onClick={() => {
-            document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <Image
-            alt="strzałka do góry"
-            src="/images/arrow.svg"
+            alt="arrow-up"
+            src="/images/arrow-up.svg"
             height={50}
             width={50}
             draggable={false}
