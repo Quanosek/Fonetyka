@@ -83,6 +83,7 @@ export default function HomePage() {
 
       <div className={styles.main}>
         <textarea
+          name="textInput"
           className={domine.className}
           placeholder="Dowolny wyraz"
           value={textInput}
