@@ -142,7 +142,13 @@ export default function HomePage() {
         <button
           title="Powrót na górę strony"
           className={styles.scrollTopButton}
-          style={{ display: scrollTop ? "flex" : "none" }}
+          style={{
+            visibility: scrollTop ? "visible" : "hidden",
+            opacity: scrollTop ? "1" : "0",
+            bottom: scrollTop ? "" : "-3rem",
+            scale: scrollTop ? "" : "75%",
+            transition: "0.15s ease-in-out",
+          }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <Image
