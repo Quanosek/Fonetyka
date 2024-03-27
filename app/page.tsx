@@ -125,11 +125,17 @@ export default function HomePage() {
                     }}
                   >
                     <div>
-                      <p className={styles.inputValue}>{log.input}</p>
+                      <p className={`${domine.className} ${styles.inputValue}`}>
+                        {log.input}
+                      </p>
                       <p className={styles.timeDate}>{log.date}</p>
                     </div>
 
-                    <p className={styles.outputValue}>{log.output}</p>
+                    <p className={`${domine.className} ${styles.outputValue}`}>
+                      {log.output.map((result, index) => (
+                        <span key={index}>{result}</span>
+                      ))}
+                    </p>
                   </div>
                 );
               })}

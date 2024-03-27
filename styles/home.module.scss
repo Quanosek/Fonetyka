@@ -81,21 +81,21 @@ $max_width: 1440px;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: min(3vw, 1rem);
 
     textarea,
     div {
       width: 100%;
-      height: 18rem;
-      font-size: 155%;
+      height: min(100vw, 18rem);
+      font-size: min(5vw, 155%);
     }
 
     textarea {
-      padding: 1.5rem 0 2.25rem;
+      padding: min(5.5vw, 1.5rem) 0 min(5vw, 2.25rem);
     }
 
     div {
-      padding: 2.8rem 0 0.8rem;
+      padding: min(12vw, 2.8rem) 0 min(1.5vw, 0.8rem);
     }
   }
 }
@@ -129,12 +129,12 @@ $max_width: 1440px;
   }
 
   @media (max-width: 768px) {
-    margin: -2.6rem;
+    margin: max(-8vw, -2.6rem);
     top: 0;
 
-    width: 7rem;
-    height: 4rem;
-    font-size: 125%;
+    width: min(25vw, 7rem);
+    height: min(13vw, 4rem);
+    font-size: min(4.5vw, 125%);
     border-radius: 25%;
   }
 }
@@ -147,17 +147,22 @@ $max_width: 1440px;
   align-items: center;
   gap: 0.6rem;
 
-  @media (max-width: 768px) {
-    margin: 0.5rem 0 2.5rem;
-    width: 95%;
-  }
-
   h2 {
     margin: 1rem;
     text-align: center;
     font-size: 150%;
     font-weight: 550;
     text-shadow: 4px 3px 12px #000000;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0 min(7vw, 2.5rem);
+    width: 95%;
+
+    h2 {
+      margin: 3vw;
+      font-size: min(6.5vw, 165%);
+    }
   }
 }
 
@@ -177,6 +182,7 @@ $max_width: 1440px;
 
   @media (max-width: 768px) {
     min-height: 20rem;
+    font-size: min(3vw, 100%);
   }
 
   p {
@@ -239,7 +245,9 @@ $max_width: 1440px;
   }
 
   .outputValue {
-    margin-left: 5px;
+    display: flex;
+    gap: 5px;
+
     overflow: hidden;
     text-overflow: ellipsis;
   }
