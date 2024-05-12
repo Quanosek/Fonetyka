@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pl" dir="ltr">
+    <html lang="pl">
       {process.env.NODE_ENV !== "development" && <Analytics />}
 
       <body className={encodeSans.className}>

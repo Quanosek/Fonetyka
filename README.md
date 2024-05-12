@@ -1,3 +1,4 @@
-## Generator zapisu fonetycznego
+# Fonetyka
 
-Zamiana podanych wyrazów na poprawny polski zapis fonetyczny w standardach AS i IPA.
+* Using [Next.js](https://nextjs.org/docs) framework with App Router ( /app )
+* Build by [pnpm](https://pnpm.io/) package manager
