@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import Analytics from "@/components/analytics";
 
 import "the-new-css-reset/css/reset.css";
 import "@/styles/globals.scss";
-
-import Analytics from "@/components/analytics";
 
 import { Encode_Sans } from "next/font/google";
 const encodeSans = Encode_Sans({

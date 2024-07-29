@@ -1,15 +1,13 @@
-import format_AS from "@/functions/formats/AS";
-import format_IPA from "@/functions/formats/IPA";
+import letters from "./formats/alphabet.json";
+import format_AS from "./formats/AS";
+import format_IPA from "./formats/IPA";
 
-import letters from "@/functions/formats/alphabet.json";
 const alphabet = letters.all;
-
+const voicelessArray = letters.voiceless;
 const vowelsArray = letters.vowels;
 const consonantsArray = alphabet.filter(
   (letter) => !vowelsArray.includes(letter)
 );
-
-const voicelessArray = letters.voiceless;
 
 // wyjątki z dźwięcznością głosek przy spółgłoskach
 export function sonority(word: string, a: string, b: string) {

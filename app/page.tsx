@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import rewrite from "@/lib/rewrite";
 
 import styles from "@/styles/home.module.scss";
-import rewrite from "@/functions/rewrite";
 
 import { Domine } from "next/font/google";
 const domine = Domine({
