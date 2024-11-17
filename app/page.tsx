@@ -19,9 +19,8 @@ interface HistoryLog {
 }
 
 export default function HomePage() {
-  const [scrollTop, showScrollTop] = useState<boolean>(false);
-
-  const [textInput, setTextInput] = useState<string>("");
+  const [scrollTop, showScrollTop] = useState(false);
+  const [textInput, setTextInput] = useState("");
   const [results, setResults] = useState<string[]>([]);
   const [historyLog, setHistoryLog] = useState<HistoryLog[]>([]);
 

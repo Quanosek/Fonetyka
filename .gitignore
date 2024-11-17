@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -35,7 +36,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# PWA
+# pwa
 **/public/sw.js
 **/public/swe-worker-*.js
 **/public/workbox-*.js
+
+# docker
+Dockerfile
+docker-compose.yml
