@@ -3,7 +3,7 @@
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { GoogleAdSense } from "nextjs-google-adsense";
 
-export default function Analytics() {
+const AnalyticsComponent = () => {
   // https://search.google.com/search-console
   // https://analytics.google.com/
   // https://www.google.com/adsense/
@@ -20,4 +20,6 @@ export default function Analytics() {
       />
     </>
   );
-}
+};
+
+export default AnalyticsComponent;

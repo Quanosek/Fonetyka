@@ -116,7 +116,7 @@ export function reduceRepeat(word: string) {
 export default function rewrite(input: string) {
   const words = input.toLowerCase().split(/[" "|"\n"]/g);
 
-  const results = new Array();
+  const results: string[] = [];
   words.forEach((word) => {
     const AS = format_AS(word);
     const IPA = format_IPA(word);

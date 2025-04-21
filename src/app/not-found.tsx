@@ -1,18 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
-import styles from "@/styles/not-found.module.scss";
+import styles from "./not-found.module.scss";
 
 export default function NotFoundPage() {
   const router = useRouter();
-  const [seconds, setSeconds] = useState(10); // 10 seconds
+
+  const [seconds, setSeconds] = useState<number>(10);
 
   useEffect(() => {
     const counter = setInterval(() => {
       setSeconds((prevSeconds: number) => prevSeconds - 1);
-      if (seconds === 1) router.push("/");
+      if (seconds <= 1) router.push("/");
     }, 1000);
 
     return () => clearInterval(counter);

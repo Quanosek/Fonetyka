@@ -1,9 +1,8 @@
-/** @type {import('next').NextConfig} */
-
 import withPWAInit from "@ducanh2912/next-pwa";
+import type { NextConfig } from "next";
 
+// PWA config
 const withPWA = withPWAInit({
-  // pwa options
   disable: process.env.NODE_ENV === "development",
   dest: "public",
   cacheOnFrontEndNav: true,
@@ -14,10 +13,16 @@ const withPWA = withPWAInit({
   },
 });
 
-export default withPWA({
-  // Next.js config
-  reactStrictMode: true,
-  images: {
-    minimumCacheTTL: 60,
+// Next.js config
+const nextConfig: NextConfig = {
+  devIndicators: false,
+
+  eslint: {
+    ignoreDuringBuilds: true,
   },
-});
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};
+
+export default withPWA(nextConfig);

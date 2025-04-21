@@ -1,13 +1,13 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import rewrite from "@/lib/rewrite";
+import rewrite from "@/utils/rewrite";
 
-import styles from "@/styles/home.module.scss";
+import styles from "./page.module.scss";
 
 import { Domine } from "next/font/google";
-const domine = Domine({
+const DomineFont = Domine({
   subsets: ["latin"],
   display: "swap",
 });
@@ -83,7 +83,7 @@ export default function HomePage() {
       <div className={styles.main}>
         <textarea
           name="textInput"
-          className={domine.className}
+          className={DomineFont.className}
           placeholder="Dowolny wyraz"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
@@ -97,7 +97,7 @@ export default function HomePage() {
           <p>Zamień</p>
         </button>
 
-        <div className={domine.className}>
+        <div className={DomineFont.className}>
           {(!results.length && (
             <p className={styles.placeholder}>Zapis fonetyczny</p>
           )) ||
@@ -124,13 +124,17 @@ export default function HomePage() {
                     }}
                   >
                     <div>
-                      <p className={`${domine.className} ${styles.inputValue}`}>
+                      <p
+                        className={`${DomineFont.className} ${styles.inputValue}`}
+                      >
                         {log.input}
                       </p>
                       <p className={styles.timeDate}>{log.date}</p>
                     </div>
 
-                    <p className={`${domine.className} ${styles.outputValue}`}>
+                    <p
+                      className={`${DomineFont.className} ${styles.outputValue}`}
+                    >
                       {log.output.map((result, index) => (
                         <span key={index}>{result}</span>
                       ))}

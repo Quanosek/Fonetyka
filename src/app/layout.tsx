@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
 import Analytics from "@/components/analytics";
 
 import "the-new-css-reset/css/reset.css";
-import "@/styles/globals.scss";
+import "./globals.scss";
 
 import { Encode_Sans } from "next/font/google";
-const encodeSans = Encode_Sans({
+const EncodeSansFont = Encode_Sans({
   subsets: ["latin"],
   display: "swap",
 });
@@ -16,25 +15,30 @@ export const metadata: Metadata = {
   title: "Generator zapisu fonetycznego / klalo.pl",
   description:
     "Przekształcanie wyrazów w języku polskim na zapis fonetyczny w standardach AS i IPA.",
-
   icons: {
     icon: ["/favicons/favicon.ico", "/favicons/icon.svg"],
     apple: "/favicons/apple-icon.png",
   },
-
   manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="pl">
-      {process.env.NODE_ENV !== "development" && <Analytics />}
+      {process.env.NODE_ENV === "production" && <Analytics />}
 
-      <body className={encodeSans.className}>
+      <body className={EncodeSansFont.className}>
         {children}
 
         <footer>
