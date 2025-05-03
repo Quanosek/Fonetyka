@@ -1,4 +1,4 @@
-<h1>fonetyka</h1>
+<h1>Fonetyka</h1>
 
 <div>
   <img alt="react" src="https://skillicons.dev/icons?i=react" height="45" />
