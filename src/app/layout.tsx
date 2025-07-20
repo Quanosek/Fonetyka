@@ -43,14 +43,6 @@ export default function RootLayout({
 
         <footer>
           <p>
-            Stworzone <span>dla pewnej studentki filologii polskiej 💜</span>{" "}
-            przez{" "}
-            <a href="https://github.com/Quanosek" target="_blank">
-              Jakuba Kłało
-            </a>
-          </p>
-
-          <p>
             Wszelkie prawa zastrzeżone &#169; 2023-
             {new Date().getFullYear()} │ domena{" "}
             <a href="https://www.klalo.pl" target="_blank">
