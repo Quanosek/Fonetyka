@@ -1,4 +1,4 @@
-<h1>Fonetyka</h1>
+# Fonetyka
 
 <div>
   <img alt="pnpm" src="https://skillicons.dev/icons?i=pnpm" height="45" />
@@ -14,23 +14,43 @@
   <img alt="sass" src="https://skillicons.dev/icons?i=sass" height="45" />
 </div>
 
-<br />
+## 📖 Project Description
 
-<div>
-  <p>Easy to use frontend PWA application with the author's script for Polish phonetic notation translation generation.</p>
+A comprehensive frontend PWA application for converting Polish words into phonetic transcription using two internationally recognized standards: AS (Slavic Alphabet) and IPA (International Phonetic Alphabet).
 
-  <ul>
-    <li>Using <a href="https://nextjs.org/docs">Next.js</a> framework with App Router ( /app )</li>
-    <li>Build by <a href="https://pnpm.io/">pnpm</a> package manager</li>
-  </ul>
-</div>
+### ⚡ Technologies
 
-<br />
+- **Framework**: [Next.js](https://nextjs.org/docs) with App Router (`/app`)
+- **Package Manager**: [pnpm](https://pnpm.io/)
+- **PWA**: Offline-first approach with service worker
+- **Styling**: Sass/SCSS with CSS modules
+- **TypeScript**: Full application typing
 
-<img width="100%" style="max-width: 1440px" src="./screenshot.webp" />
+### 🚀 Features
 
-<h2>Support</h2>
+- 🔤 Polish phonetic transcription generator
+- 🌍 Support for IPA (International Phonetic Alphabet) standard
+- 🇵🇱 Support for AS (Slavic Alphabet) standard
+- 📱 Responsive design for all devices
+- 🔄 Offline functionality (PWA)
+- 📜 Search history with quick recall
+- ⚡ Real-time transcription conversion
+- 🎯 Automatic handling of Polish phonetic rules (voicing, softening, etc.)
 
-<a href="https://ko-fi.com/quanosek">
-  <img alt="quanosek" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" width="210" height="50" />
+###
+
+<img width="100%" style="max-width: 900px" src="./screenshot.webp" alt="Screenshot of Fonetyka application" />
+
+## ☕ Project Support
+
+If this project has been helpful to you, you can buy me a coffee as a thank you for the work invested.
+
+<a href="https://buycoffee.to/kubaklalo#gh-dark-mode-only">
+  <img style="margin: 10px 0; filter:invert(1)" alt="quanosek" src="https://storagebuycoffeeprod.blob.core.windows.net/content-files/Logo/0197ef01-04a5-4ce4-a153-b11e060cf1a2.png#gh-dark-mode-only" height="32"  />
 </a>
+
+<a href="https://buycoffee.to/kubaklalo#gh-light-mode-only">
+  <img style="margin: 10px 0" alt="quanosek" src="https://storagebuycoffeeprod.blob.core.windows.net/content-files/Logo/0197ef01-0531-46ad-b782-1ea5a5bca0b7.png#gh-light-mode-only" height="32"  />
+</a>
+
+Thank you for all your support! 🙏
