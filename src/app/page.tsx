@@ -80,6 +80,21 @@ export default function HomePage() {
         priority={true}
       />
 
+      <a
+        href="https://buycoffee.to/kubaklalo"
+        className={styles.coffeeButton}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          alt="Buy me a coffee"
+          src="/images/buycoffee.png"
+          width={122 / 3.5}
+          height={79 / 3.5}
+          draggable={false}
+        />
+      </a>
+
       <div className={styles.main}>
         <textarea
           name="textInput"

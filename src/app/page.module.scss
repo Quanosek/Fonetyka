@@ -7,6 +7,40 @@
   }
 }
 
+.coffeeButton {
+  margin-top: 8px;
+  position: absolute;
+  top: 1%;
+  right: 3%;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  transition: background-color 150ms ease-out;
+
+  &:hover {
+    background-color: rgba(#ffffff, 0.1);
+  }
+
+  img {
+    filter: drop-shadow(1px 1px 1px rgba(#000000, 0.5))
+      drop-shadow(0 0 8px rgba(#000000, 0.3));
+  }
+
+  @media (max-width: 768px) {
+    top: 3vw;
+    right: 4%;
+    background-color: transparent !important;
+
+    img {
+      width: 4.5vw;
+      height: auto;
+    }
+  }
+}
+
 $area_height: 26rem;
 $max_width: 1440px;
 
