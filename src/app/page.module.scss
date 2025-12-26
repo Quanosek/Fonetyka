@@ -25,8 +25,7 @@
   }
 
   img {
-    filter: drop-shadow(1px 1px 1px rgba(#000000, 0.5))
-      drop-shadow(0 0 8px rgba(#000000, 0.3));
+    filter: drop-shadow(1px 1px 1px rgba(#000000, 0.5)) drop-shadow(0 0 8px rgba(#000000, 0.3));
   }
 
   @media (max-width: 768px) {
@@ -148,7 +147,9 @@ $max_width: 1440px;
   font-weight: 500;
   color: #000000;
   background-color: #8fd2ff;
-  box-shadow: 0 10px 25px -14px #000000, 0 0 5px -2px #000000;
+  box-shadow:
+    0 10px 25px -14px #000000,
+    0 0 5px -2px #000000;
 
   @media (min-width: 769px) {
     &:hover {

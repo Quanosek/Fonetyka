@@ -1,0 +1,14 @@
+.git
+.DS_Store
+
+.github
+.next
+.vscode
+node_modules
+
+.editorconfig
+.env.example
+.prettierignore
+.prettierrc
+LICENSE
+next-env.d.ts

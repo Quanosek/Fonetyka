@@ -1,31 +1,29 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
-import styles from "./not-found.module.scss";
+import styles from './not-found.module.scss'
 
 export default function NotFoundPage() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [seconds, setSeconds] = useState<number>(10);
+  const [seconds, setSeconds] = useState<number>(10)
 
   useEffect(() => {
     const counter = setInterval(() => {
-      setSeconds((prevSeconds: number) => prevSeconds - 1);
-      if (seconds <= 1) router.push("/");
-    }, 1000);
+      setSeconds((prevSeconds: number) => prevSeconds - 1)
+      if (seconds <= 1) router.push('/')
+    }, 1000)
 
-    return () => clearInterval(counter);
-  }, [router, seconds]);
+    return () => clearInterval(counter)
+  }, [router, seconds])
 
   return (
     <main className={styles.notFound}>
       <h1>Nie znaleziono strony!</h1>
 
-      <p className={styles.description}>
-        Powrót do generatora nastąpi za [{seconds}] sekund
-      </p>
+      <p className={styles.description}>Powrót do generatora nastąpi za [{seconds}] sekund</p>
     </main>
-  );
+  )
 }

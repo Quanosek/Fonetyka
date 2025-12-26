@@ -1,79 +1,79 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import rewrite from "@/utils/rewrite";
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import rewrite from '@/utils/rewrite'
 
-import styles from "./page.module.scss";
+import styles from './page.module.scss'
 
-import { Domine } from "next/font/google";
+import { Domine } from 'next/font/google'
 const DomineFont = Domine({
-  subsets: ["latin"],
-  display: "swap",
-});
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 interface HistoryLog {
-  date: string;
-  input: string;
-  output: string[];
+  date: string
+  input: string
+  output: string[]
 }
 
 export default function HomePage() {
-  const [scrollTop, showScrollTop] = useState(false);
-  const [textInput, setTextInput] = useState("");
-  const [results, setResults] = useState<string[]>([]);
-  const [historyLog, setHistoryLog] = useState<HistoryLog[]>([]);
+  const [scrollTop, showScrollTop] = useState(false)
+  const [textInput, setTextInput] = useState('')
+  const [results, setResults] = useState<string[]>([])
+  const [historyLog, setHistoryLog] = useState<HistoryLog[]>([])
 
   // activate scroll-to-top button
   useEffect(() => {
-    const scrollHandler = () => showScrollTop(window.scrollY > 200);
+    const scrollHandler = () => showScrollTop(window.scrollY > 200)
 
-    window.addEventListener("scroll", scrollHandler);
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, []);
+    window.addEventListener('scroll', scrollHandler)
+    return () => window.removeEventListener('scroll', scrollHandler)
+  }, [])
 
   const magicButton = (input: string) => {
-    if (!input) return alert("Nie wpisano żadnych liter!");
+    if (!input) return alert('Nie wpisano żadnych liter!')
 
     // reformat input
     const newInput = input
-      .replace(/[0-9]/gi, "")
-      .replace(/[ -\/:-@\[-\`{-~]/gi, "\n")
-      .replace(/ +(?= )/g, "")
-      .replace(/^[\r\n]+|[\r\n]+$/g, "")
-      .replace(/\n+(?=\n)/g, "");
+      .replace(/[0-9]/gi, '')
+      .replace(/[ -\/:-@\[-\`{-~]/gi, '\n')
+      .replace(/ +(?= )/g, '')
+      .replace(/^[\r\n]+|[\r\n]+$/g, '')
+      .replace(/\n+(?=\n)/g, '')
 
-    setTextInput(newInput);
+    setTextInput(newInput)
 
-    const result = rewrite(newInput);
-    setResults(result);
+    const result = rewrite(newInput)
+    setResults(result)
 
     // before adding check if not included
     if (historyLog.length > 0) {
-      if (historyLog[0].input === newInput) return;
+      if (historyLog[0].input === newInput) return
     }
 
     // save to history array
     setHistoryLog([
       {
-        date: new Date().toLocaleTimeString("pl-PL", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
+        date: new Date().toLocaleTimeString('pl-PL', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
         }),
         input: newInput,
         output: result,
       },
       ...historyLog,
-    ]);
-  };
+    ])
+  }
 
   return (
     <main>
       <Image
         className={styles.titleImage}
-        src="/images/title.svg"
-        alt="Generator zapisu fonetycznego"
+        src='/images/title.svg'
+        alt='Generator zapisu fonetycznego'
         width={600}
         height={180}
         draggable={false}
@@ -81,14 +81,14 @@ export default function HomePage() {
       />
 
       <a
-        href="https://buycoffee.to/kubaklalo"
+        href='https://buycoffee.to/kubaklalo'
         className={styles.coffeeButton}
-        target="_blank"
-        rel="noopener noreferrer"
+        target='_blank'
+        rel='noopener noreferrer'
       >
         <Image
-          alt="Buy me a coffee"
-          src="/images/buycoffee.png"
+          alt='Buy me a coffee'
+          src='/images/buycoffee.png'
           width={122 / 3.5}
           height={79 / 3.5}
           draggable={false}
@@ -97,15 +97,15 @@ export default function HomePage() {
 
       <div className={styles.main}>
         <textarea
-          name="textInput"
+          name='textInput'
           className={DomineFont.className}
-          placeholder="Dowolny wyraz"
+          placeholder='Dowolny wyraz'
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
         />
 
         <button
-          title="Kliknij, aby wygenerować na zapis fonetyczny"
+          title='Kliknij, aby wygenerować na zapis fonetyczny'
           className={styles.magicButton}
           onClick={() => magicButton(textInput)}
         >
@@ -113,9 +113,7 @@ export default function HomePage() {
         </button>
 
         <div className={DomineFont.className}>
-          {(!results.length && (
-            <p className={styles.placeholder}>Zapis fonetyczny</p>
-          )) ||
+          {(!results.length && <p className={styles.placeholder}>Zapis fonetyczny</p>) ||
             results.map((result, index) => <p key={index}>{result}</p>)}
         </div>
       </div>
@@ -127,35 +125,29 @@ export default function HomePage() {
           {(!historyLog.length && <p>Lista na razie jest pusta</p>) || (
             <>
               {historyLog.map((_, i) => {
-                const log = historyLog[i];
+                const log = historyLog[i]
 
                 return (
                   <div
                     key={i}
                     className={styles.historyLog}
                     onClick={() => {
-                      setTextInput(log.input);
-                      magicButton(log.input);
+                      setTextInput(log.input)
+                      magicButton(log.input)
                     }}
                   >
                     <div>
-                      <p
-                        className={`${DomineFont.className} ${styles.inputValue}`}
-                      >
-                        {log.input}
-                      </p>
+                      <p className={`${DomineFont.className} ${styles.inputValue}`}>{log.input}</p>
                       <p className={styles.timeDate}>{log.date}</p>
                     </div>
 
-                    <p
-                      className={`${DomineFont.className} ${styles.outputValue}`}
-                    >
+                    <p className={`${DomineFont.className} ${styles.outputValue}`}>
                       {log.output.map((result, index) => (
                         <span key={index}>{result}</span>
                       ))}
                     </p>
                   </div>
-                );
+                )
               })}
             </>
           )}
@@ -164,20 +156,20 @@ export default function HomePage() {
 
       <div className={styles.scrollTopHandler}>
         <button
-          title="Powrót na górę strony"
+          title='Powrót na górę strony'
           className={styles.scrollTopButton}
           style={{
-            visibility: scrollTop ? "visible" : "hidden",
-            opacity: scrollTop ? "1" : "0",
-            bottom: scrollTop ? "" : "-3rem",
-            scale: scrollTop ? "" : "75%",
-            transition: "0.15s ease-in-out",
+            visibility: scrollTop ? 'visible' : 'hidden',
+            opacity: scrollTop ? '1' : '0',
+            bottom: scrollTop ? '' : '-3rem',
+            scale: scrollTop ? '' : '75%',
+            transition: '0.15s ease-in-out',
           }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <Image
-            alt="arrow-up"
-            src="/images/arrow-up.svg"
+            alt='arrow-up'
+            src='/images/arrow-up.svg'
             height={50}
             width={50}
             draggable={false}
@@ -185,5 +177,5 @@ export default function HomePage() {
         </button>
       </div>
     </main>
-  );
+  )
 }

@@ -13,10 +13,11 @@ const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     ignores: [
-      'node_modules/**',
       '.next/**',
-      'out/**',
-      'build/**',
+      'node_modules/**',
+      'public/sw.js',
+      'public/swe-worker-*.js',
+      'public/workbox-*.js',
       'next-env.d.ts',
     ],
   },

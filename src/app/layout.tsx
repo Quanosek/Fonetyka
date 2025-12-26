@@ -1,42 +1,42 @@
-import type { Metadata, Viewport } from "next";
-import Analytics from "@/components/analytics";
+import type { Metadata, Viewport } from 'next'
+import Analytics from '@/components/analytics'
 
-import "the-new-css-reset/css/reset.css";
-import "./globals.scss";
+import 'the-new-css-reset/css/reset.css'
+import './globals.scss'
 
-import { Encode_Sans } from "next/font/google";
+import { Encode_Sans } from 'next/font/google'
 const EncodeSansFont = Encode_Sans({
-  subsets: ["latin"],
-  display: "swap",
-});
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  applicationName: "Fonetyka",
-  title: "Generator zapisu fonetycznego / klalo.pl",
+  applicationName: 'Fonetyka',
+  title: 'Generator zapisu fonetycznego / klalo.pl',
   description:
-    "Przekształcanie wyrazów w języku polskim na zapis fonetyczny w standardach AS i IPA.",
+    'Przekształcanie wyrazów w języku polskim na zapis fonetyczny w standardach AS i IPA.',
   icons: {
-    icon: ["/favicons/favicon.ico", "/favicons/icon.svg"],
-    apple: "/favicons/apple-icon.png",
+    icon: ['/favicons/favicon.ico', '/favicons/icon.svg'],
+    apple: '/favicons/apple-icon.png',
   },
-  manifest: "/manifest.json",
-};
+  manifest: '/manifest.json',
+}
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="pl">
-      {process.env.NODE_ENV === "production" && <Analytics />}
+    <html lang='pl'>
+      {process.env.NODE_ENV === 'production' && <Analytics />}
 
       <body className={EncodeSansFont.className}>
         {children}
@@ -44,13 +44,13 @@ export default function RootLayout({
         <footer>
           <p>
             Wszelkie prawa zastrzeżone &#169; 2023-
-            {new Date().getFullYear()} │ domena{" "}
-            <a href="https://www.klalo.pl" target="_blank">
+            {new Date().getFullYear()} │ domena{' '}
+            <a href='https://www.klalo.pl' target='_blank'>
               klalo.pl
             </a>
           </p>
         </footer>
       </body>
     </html>
-  );
+  )
 }

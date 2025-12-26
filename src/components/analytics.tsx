@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { GoogleAnalytics } from "nextjs-google-analytics";
-import { GoogleAdSense } from "nextjs-google-adsense";
+import { GoogleAnalytics } from 'nextjs-google-analytics'
+import { GoogleAdSense } from 'nextjs-google-adsense'
 
 const AnalyticsComponent = () => {
   // https://search.google.com/search-console
@@ -15,11 +15,9 @@ const AnalyticsComponent = () => {
         gaMeasurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string}
       />
 
-      <GoogleAdSense
-        publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID as string}
-      />
+      <GoogleAdSense publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID as string} />
     </>
-  );
-};
+  )
+}
 
-export default AnalyticsComponent;
+export default AnalyticsComponent

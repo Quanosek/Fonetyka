@@ -1,0 +1,17 @@
+services:
+  fonetyka:
+    image: quanosek/fonetyka:latest
+    container_name: fonetyka
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${HOST_PORT}:3000"
+    volumes:
+      - data:/app/node_modules
+
+volumes:
+  data:
