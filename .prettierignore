@@ -1,11 +1,11 @@
 .next/
 node_modules/
-LICENSE
-next-env.d.ts
 
 public/sw.js
 public/swe-worker-*.js
 public/workbox-*.js
+LICENSE
+next-env.d.ts
 
 *.yaml
 *.yml
