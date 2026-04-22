@@ -17,7 +17,7 @@
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "next": "~15.5.9",
+    "next": "~15.5.15",
     "nextjs-google-adsense": "^1.0.0",
     "nextjs-google-analytics": "^2.3.7",
     "react": "~19.2.3",
